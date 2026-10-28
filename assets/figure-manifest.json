@@ -1,0 +1,164 @@
+[
+  {
+    "name": "all_concept_cross",
+    "source": "figures/appendix/all_concept_cross.pdf",
+    "svg": "assets/figures/all_concept_cross.svg",
+    "pdf": "assets/pdf/all_concept_cross.pdf"
+  },
+  {
+    "name": "all_concept_direct",
+    "source": "figures/appendix/all_concept_direct.pdf",
+    "svg": "assets/figures/all_concept_direct.svg",
+    "pdf": "assets/pdf/all_concept_direct.pdf"
+  },
+  {
+    "name": "all_sample_cross",
+    "source": "figures/appendix/all_sample_cross.pdf",
+    "svg": "assets/figures/all_sample_cross.svg",
+    "pdf": "assets/pdf/all_sample_cross.pdf"
+  },
+  {
+    "name": "all_sample_direct",
+    "source": "figures/appendix/all_sample_direct.pdf",
+    "svg": "assets/figures/all_sample_direct.svg",
+    "pdf": "assets/pdf/all_sample_direct.pdf"
+  },
+  {
+    "name": "concept_robustness",
+    "source": "figures/appendix/concept_robustness.pdf",
+    "svg": "assets/figures/concept_robustness.svg",
+    "pdf": "assets/pdf/concept_robustness.pdf"
+  },
+  {
+    "name": "failure_orthogonal",
+    "source": "figures/appendix/failure_orthogonal.pdf",
+    "svg": "assets/figures/failure_orthogonal.svg",
+    "pdf": "assets/pdf/failure_orthogonal.pdf"
+  },
+  {
+    "name": "failure_parallel",
+    "source": "figures/appendix/failure_parallel.pdf",
+    "svg": "assets/figures/failure_parallel.svg",
+    "pdf": "assets/pdf/failure_parallel.pdf"
+  },
+  {
+    "name": "failure_whiten",
+    "source": "figures/appendix/failure_whiten.pdf",
+    "svg": "assets/figures/failure_whiten.svg",
+    "pdf": "assets/pdf/failure_whiten.pdf"
+  },
+  {
+    "name": "framework",
+    "source": "figures/appendix/framework.pdf",
+    "svg": "assets/figures/framework.svg",
+    "pdf": "assets/pdf/framework.pdf"
+  },
+  {
+    "name": "dynamics_finetune",
+    "source": "figures/dynamics/dynamics_finetune.pdf",
+    "svg": "assets/figures/dynamics_finetune.svg",
+    "pdf": "assets/pdf/dynamics_finetune.pdf"
+  },
+  {
+    "name": "dynamics_fkd",
+    "source": "figures/dynamics/dynamics_fkd.pdf",
+    "svg": "assets/figures/dynamics_fkd.svg",
+    "pdf": "assets/pdf/dynamics_fkd.pdf"
+  },
+  {
+    "name": "dynamics_rkd",
+    "source": "figures/dynamics/dynamics_rkd.pdf",
+    "svg": "assets/figures/dynamics_rkd.svg",
+    "pdf": "assets/pdf/dynamics_rkd.pdf"
+  },
+  {
+    "name": "scratch_fkd",
+    "source": "figures/dynamics/scratch_fkd.pdf",
+    "svg": "assets/figures/scratch_fkd.svg",
+    "pdf": "assets/pdf/scratch_fkd.pdf"
+  },
+  {
+    "name": "scratch_raw",
+    "source": "figures/dynamics/scratch_raw.pdf",
+    "svg": "assets/figures/scratch_raw.svg",
+    "pdf": "assets/pdf/scratch_raw.pdf"
+  },
+  {
+    "name": "scratch_rkd",
+    "source": "figures/dynamics/scratch_rkd.pdf",
+    "svg": "assets/figures/scratch_rkd.svg",
+    "pdf": "assets/pdf/scratch_rkd.pdf"
+  },
+  {
+    "name": "concept_geometry",
+    "source": "figures/main/concept_geometry.pdf",
+    "svg": "assets/figures/concept_geometry.svg",
+    "pdf": "assets/pdf/concept_geometry.pdf"
+  },
+  {
+    "name": "concept_layer",
+    "source": "figures/main/concept_layer.pdf",
+    "svg": "assets/figures/concept_layer.svg",
+    "pdf": "assets/pdf/concept_layer.pdf"
+  },
+  {
+    "name": "concept_modality",
+    "source": "figures/main/concept_modality.pdf",
+    "svg": "assets/figures/concept_modality.svg",
+    "pdf": "assets/pdf/concept_modality.pdf"
+  },
+  {
+    "name": "disentangle_cross",
+    "source": "figures/main/disentangle_cross.pdf",
+    "svg": "assets/figures/disentangle_cross.svg",
+    "pdf": "assets/pdf/disentangle_cross.pdf"
+  },
+  {
+    "name": "disentangle_hsic",
+    "source": "figures/main/disentangle_hsic.pdf",
+    "svg": "assets/figures/disentangle_hsic.svg",
+    "pdf": "assets/pdf/disentangle_hsic.pdf"
+  },
+  {
+    "name": "disentangle_lp",
+    "source": "figures/main/disentangle_lp.pdf",
+    "svg": "assets/figures/disentangle_lp.svg",
+    "pdf": "assets/pdf/disentangle_lp.pdf"
+  },
+  {
+    "name": "metric_schematic",
+    "source": "figures/main/metric_schematic.pdf",
+    "svg": "assets/figures/metric_schematic.svg",
+    "pdf": "assets/pdf/metric_schematic.pdf"
+  },
+  {
+    "name": "sample_ll",
+    "source": "figures/main/sample_ll.pdf",
+    "svg": "assets/figures/sample_ll.svg",
+    "pdf": "assets/pdf/sample_ll.pdf"
+  },
+  {
+    "name": "sample_modality",
+    "source": "figures/main/sample_modality.pdf",
+    "svg": "assets/figures/sample_modality.svg",
+    "pdf": "assets/pdf/sample_modality.pdf"
+  },
+  {
+    "name": "sample_size",
+    "source": "figures/main/sample_size.pdf",
+    "svg": "assets/figures/sample_size.svg",
+    "pdf": "assets/pdf/sample_size.pdf"
+  },
+  {
+    "name": "sample_vl",
+    "source": "figures/main/sample_vl.pdf",
+    "svg": "assets/figures/sample_vl.svg",
+    "pdf": "assets/pdf/sample_vl.pdf"
+  },
+  {
+    "name": "sample_vv",
+    "source": "figures/main/sample_vv.pdf",
+    "svg": "assets/figures/sample_vv.svg",
+    "pdf": "assets/pdf/sample_vv.pdf"
+  }
+]

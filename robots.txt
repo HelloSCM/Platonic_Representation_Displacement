@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://helloscm.github.io/Platonic_Representation_Displacement/sitemap.xml
