@@ -94,29 +94,6 @@ variantButtons.forEach(button => {
 });
 fullResults.addEventListener('change', renderResults);
 
-// Native dialog provides focus trapping, Escape dismissal, and focus restoration.
-const dialog = document.getElementById('figure-dialog');
-const dialogImage = document.getElementById('dialog-image');
-document.querySelectorAll('[data-figure]').forEach(button => {
-  button.addEventListener('click', () => {
-    const image = button.querySelector('img');
-    const figure = button.closest('figure');
-    document.getElementById('dialog-title').textContent = button.getAttribute('aria-label').replace(/^Enlarge (the )?/, '').replace(/^./, first => first.toUpperCase());
-    dialogImage.src = image.src;
-    dialogImage.alt = image.alt;
-    document.getElementById('dialog-pdf').href = `assets/pdf/${button.dataset.figure}.pdf`;
-    document.getElementById('dialog-caption').textContent = figure.querySelector('figcaption')?.textContent.replace(/(Original )?PDF\s*↗/g, '').trim() || image.alt;
-    dialog.showModal();
-    document.body.classList.add('dialog-open');
-  });
-});
-document.getElementById('dialog-close').addEventListener('click', () => dialog.close());
-dialog.addEventListener('click', event => {
-  const rect = dialog.getBoundingClientRect();
-  if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
-});
-dialog.addEventListener('close', () => document.body.classList.remove('dialog-open'));
-
 const copyButton = document.getElementById('copy-citation');
 let copyReset;
 copyButton.addEventListener('click', async () => {

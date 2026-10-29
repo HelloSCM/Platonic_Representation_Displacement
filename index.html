@@ -50,10 +50,10 @@
   <main id="main">
     <section class="hero section" id="top">
       <div class="container">
-        <p class="eyebrow hero-eyebrow"><span class="eyebrow-line"></span> A shared reality, seen through directions</p>
-        <h1><strong class="title-main">Displacement Geometry</strong><span class="title-rest">Captures <strong class="title-platonic">Platonic</strong> Shared Reality<br class="desktop-break"> Across Models and Modalities</span></h1>
+        <p class="eyebrow hero-eyebrow"><span class="eyebrow-line"></span> Accepted at NeurIPS 2026</p>
+        <h1><strong class="title-main">Displacement Geometry</strong><span class="title-middle"><span class="title-connector">Captures</span> <strong class="title-platonic">Platonic Shared Reality</strong></span><span class="title-rest">Across Models and Modalities</span></h1>
         <div class="authors" aria-label="Authors">
-          <a class="author-lead" href="mailto:chenming.shang@dartmouth.edu"><strong>Chenming Shang</strong><sup>*</sup></a><span class="author-comma">,</span>
+          <a class="author-lead" href="mailto:chenming.shang@dartmouth.edu">Chenming Shang<sup>*</sup></a><span class="author-comma">,</span>
           <a href="mailto:Yujin.Tang.GR@dartmouth.edu">Yujin Tang</a><span class="author-comma">,</span>
           <a href="mailto:Jun.Jie.Ou.Yang.GR@dartmouth.edu">Junjie Ouyang</a><span class="author-comma">,</span>
           <a href="mailto:Ruize.Xu.GR@dartmouth.edu">Ruize Xu</a><span class="author-comma">,</span>
@@ -76,8 +76,10 @@
     <section class="section section-tinted" id="metaphor">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">01 / The central idea</p><h2>Metaphor</h2></div>
+        <div class="metaphor-layout">
         <div class="metaphor-copy"><p><strong>Two maps of the same city need not agree on coordinates to give you similar directions.</strong> They may use different orientations or show different regions, yet still describe the same journey between landmarks.</p><p>Neural networks likewise learn different coordinate systems. We ask whether the displacement from one sample to another points in a similar direction across models after alignment—even when the samples themselves occupy different locations.</p></div>
-        <figure class="metaphor-figure"><a href="assets/metaphor.png" target="_blank" rel="noopener" aria-label="Open the full-size map metaphor"><img src="assets/metaphor.png" width="1536" height="1024" alt="A journey from New York to Chicago shown on a globe, a flat map, and a perspective view: different coordinates and views describe the same real-world route."></a><figcaption>Different maps, shared reality. The same New York–Chicago journey can be represented in different coordinate systems.</figcaption></figure>
+        <figure class="metaphor-figure"><img src="assets/metaphor.png" width="1536" height="1024" alt="A journey from New York to Chicago shown on a globe, a flat map, and a perspective view: different coordinates and views describe the same real-world route."><figcaption>Different maps, shared reality. The same New York–Chicago journey can be represented in different coordinate systems.</figcaption></figure>
+        </div>
       </div>
     </section>
     <section class="section" id="geometry">
@@ -86,12 +88,12 @@
         <div class="geometry-pair two-up">
           <article class="geometry-card"><h3>Inter-model Parallelism</h3><figure>
       
-      <button class="figure-open" data-figure="metric_schematic" aria-label="Enlarge Inter-model Parallelism"><img src="assets/figures/metric_schematic.svg" loading="lazy" alt="Figure 1: Pointwise compares aligned representations, Cross-Object compares model offsets, and Cross-Model compares displacement directions."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption><strong>After PCA, whitening, and orthogonal Procrustes alignment (OPA),</strong> displacement vectors between matched samples or concepts tend to point in similar directions across independently trained models. Cross-Model similarity measures this directional agreement. <a href="assets/pdf/metric_schematic.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="figure-frame"><img src="assets/figures/metric_schematic.svg" loading="lazy" alt="Pointwise compares aligned representations, Cross-Object compares model offsets, and Cross-Model compares displacement directions."></div>
+      <figcaption>After PCA, whitening, and orthogonal Procrustes alignment (OPA), <strong>displacement vectors between matched samples or concepts tend to point in similar directions across independently trained models.</strong> Cross-Model similarity measures this directional agreement.</figcaption>
     </figure></article><article class="geometry-card"><h3>Intra-model Orthogonality</h3><figure>
       
-      <button class="figure-open" data-figure="concept_geometry" aria-label="Enlarge Intra-model Orthogonality"><img src="assets/figures/concept_geometry.svg" loading="lazy" alt="Figure 3: the parent mammal concept is orthogonal to the child increments toward dog and cat."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption><strong>A parent concept is approximately orthogonal to its child’s variation vector:</strong> the displacement from the parent to a child. For example, the direction from mammal to dog lies approximately perpendicular to the mammal concept vector. <a href="assets/pdf/concept_geometry.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="figure-frame"><img src="assets/figures/concept_geometry.svg" loading="lazy" alt="the parent mammal concept is orthogonal to the child increments toward dog and cat."></div>
+      <figcaption><strong>A parent concept is approximately orthogonal to its child’s variation vector:</strong> the displacement from the parent to a child. For example, the direction from mammal to dog lies approximately perpendicular to the mammal concept vector.</figcaption>
     </figure></article></div>
       </div>
     </section>
@@ -102,105 +104,104 @@
 <section class="experiment-part" id="parallelism" aria-labelledby="parallelism-title">
       <div class="experiment-heading"><span class="part-index">01</span><div><h3 id="parallelism-title">Parallelism</h3><p>Displacement agreement exceeds pointwise agreement across vision and language models. The signal is strongest at the concept level and increases with model scale.</p></div></div>
       <div class="figure-grid three-up"><figure>
-      <div class="plot-heading"><span class="plot-index">2.a</span><h4>Sample-level agreement</h4></div>
-      <button class="figure-open" data-figure="sample_modality" aria-label="Enlarge Sample-level agreement"><img src="assets/figures/sample_modality.svg" loading="lazy" alt="Sample-level Pointwise, Cross-Object, and Cross-Model cosine similarities across modality groups."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Cross-Model similarity exceeds Pointwise for V-V, L-L, and V-L pairs; randomly initialized models have near-zero directional agreement. <a href="assets/pdf/sample_modality.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Sample-Level Agreement</h4></div>
+      <div class="figure-frame"><img src="assets/figures/sample_modality.svg" loading="lazy" alt="Sample-level Pointwise, Cross-Object, and Cross-Model cosine similarities across modality groups."></div>
+      <figcaption>Cross-Model similarity exceeds Pointwise for V-V, L-L, and V-L pairs; randomly initialized models have near-zero directional agreement.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">2.b</span><h4>Concept-level agreement</h4></div>
-      <button class="figure-open" data-figure="concept_modality" aria-label="Enlarge Concept-level agreement"><img src="assets/figures/concept_modality.svg" loading="lazy" alt="Concept-level directional agreement is stronger than sample-level agreement."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Concept-level Cross-Model similarity reaches 0.73 (V-V), 0.91 (L-L), and 0.49 (V-L), exceeding sample-level scores by 0.18–0.28. <a href="assets/pdf/concept_modality.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Concept-Level Agreement</h4></div>
+      <div class="figure-frame"><img src="assets/figures/concept_modality.svg" loading="lazy" alt="Concept-level directional agreement is stronger than sample-level agreement."></div>
+      <figcaption>Concept-level Cross-Model similarity reaches 0.73 (V-V), 0.91 (L-L), and 0.49 (V-L), exceeding sample-level scores by 0.18–0.28.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">2.c</span><h4>Effect of model scale</h4></div>
-      <button class="figure-open" data-figure="sample_size" aria-label="Enlarge Effect of model scale"><img src="assets/figures/sample_size.svg" loading="lazy" alt="Cross-Model similarity by model size for MAE, DINO, CLIP, and MetaCLIP."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Cross-Model similarity increases from Base to Large and Huge; its strength also depends on the pretraining objective. <a href="assets/pdf/sample_size.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Effect Of Model Scale</h4></div>
+      <div class="figure-frame"><img src="assets/figures/sample_size.svg" loading="lazy" alt="Cross-Model similarity by model size for MAE, DINO, CLIP, and MetaCLIP."></div>
+      <figcaption>Cross-Model similarity increases from Base to Large and Huge; its strength also depends on the pretraining objective.</figcaption>
     </figure></div>
       <p class="data-note">All three panels report cosine similarity, not task accuracy. PCA, whitening, and OPA are fitted on an alignment split and evaluated on disjoint inputs.</p>
     </section>
     <section class="experiment-part" id="orthogonality" aria-labelledby="orthogonality-title">
       <div class="experiment-heading"><span class="part-index">02</span><div><h3 id="orthogonality-title">Orthogonality</h3><p>Parent–child geometry persists across layers. Controlled simulations test its role in sample-level parallelism by disrupting concept-level parallelism or orthogonality.</p></div></div>
       <div class="figure-grid orthogonality-grid"><figure>
-      <div class="plot-heading"><span class="plot-index">4</span><h4>Geometry across layers</h4></div>
-      <button class="figure-open" data-figure="concept_layer" aria-label="Enlarge Geometry across layers"><img src="assets/figures/concept_layer.svg" loading="lazy" alt="Cosine similarities for parent, child, sibling, and their displacements across transformer layers."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Parent and child concepts remain positively aligned, while the child–parent displacement stays approximately orthogonal to the parent across layers. <a href="assets/pdf/concept_layer.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Geometry Across Layers</h4></div>
+      <div class="figure-frame"><img src="assets/figures/concept_layer.svg" loading="lazy" alt="Cosine similarities for parent, child, sibling, and their displacements across transformer layers."></div>
+      <figcaption>Parent and child concepts remain positively aligned, while the child–parent displacement stays approximately orthogonal to the parent across layers.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">9.a</span><h4>Disrupting concept parallelism</h4></div>
-      <button class="figure-open" data-figure="failure_parallel" aria-label="Enlarge Disrupting concept parallelism"><img src="assets/figures/failure_parallel.svg" loading="lazy" alt="Simulation heatmap showing sample-level agreement decreasing as concept-level parallelism is weakened."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>In simulation, sample-level directional agreement tracks concept-level Cross-Model similarity, rather than cross-model offsets. <a href="assets/pdf/failure_parallel.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Disrupting Concept Parallelism</h4></div>
+      <div class="figure-frame"><img src="assets/figures/failure_parallel.svg" loading="lazy" alt="Simulation heatmap showing sample-level agreement decreasing as concept-level parallelism is weakened."></div>
+      <figcaption>In simulation, sample-level directional agreement tracks concept-level Cross-Model similarity, rather than cross-model offsets.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">9.b</span><h4>Disrupting orthogonality</h4></div>
-      <button class="figure-open" data-figure="failure_orthogonal" aria-label="Enlarge Disrupting orthogonality"><img src="assets/figures/failure_orthogonal.svg" loading="lazy" alt="Simulation curves showing sample-level agreement falling when concept increments cease to be orthogonal to parents."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>In simulation, sample-level parallelism peaks at zero parent–child-increment cosine and weakens as orthogonality is disrupted. <a href="assets/pdf/failure_orthogonal.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Disrupting Orthogonality</h4></div>
+      <div class="figure-frame"><img src="assets/figures/failure_orthogonal.svg" loading="lazy" alt="Simulation curves showing sample-level agreement falling when concept increments cease to be orthogonal to parents."></div>
+      <figcaption>In simulation, sample-level parallelism peaks at zero parent–child-increment cosine and weakens as orthogonality is disrupted.</figcaption>
     </figure></div>
     </section><section class="experiment-part" id="modality" aria-labelledby="modality-title">
       <div class="experiment-heading"><span class="part-index">03</span><div><h3 id="modality-title">Modality</h3><p>Shared directional structure appears at different depths across modalities: corresponding vision layers align, language alignment spans many layers, and cross-modal agreement concentrates in deep vision layers.</p></div></div>
       <div class="figure-grid three-up"><figure>
-      <div class="plot-heading"><span class="plot-index">5.a</span><h4>Vision ↔ Vision</h4></div>
-      <button class="figure-open" data-figure="sample_vv" aria-label="Enlarge Vision ↔ Vision"><img src="assets/figures/sample_vv.svg" loading="lazy" alt="Layer-wise Cross-Model similarity between CLIP-ViT-Large and DINO-ViT-Large."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Directional agreement concentrates near corresponding layers in CLIP and DINO. <a href="assets/pdf/sample_vv.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Vision ↔ Vision</h4></div>
+      <div class="figure-frame"><img src="assets/figures/sample_vv.svg" loading="lazy" alt="Layer-wise Cross-Model similarity between CLIP-ViT-Large and DINO-ViT-Large."></div>
+      <figcaption>Directional agreement concentrates near corresponding layers in CLIP and DINO.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">5.b</span><h4>Language ↔ Language</h4></div>
-      <button class="figure-open" data-figure="sample_ll" aria-label="Enlarge Language ↔ Language"><img src="assets/figures/sample_ll.svg" loading="lazy" alt="Layer-wise Cross-Model similarity between Llama3-8B and Gemma-7B."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Agreement extends broadly across middle and deep layers in Llama and Gemma. <a href="assets/pdf/sample_ll.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Language ↔ Language</h4></div>
+      <div class="figure-frame"><img src="assets/figures/sample_ll.svg" loading="lazy" alt="Layer-wise Cross-Model similarity between Llama3-8B and Gemma-7B."></div>
+      <figcaption>Agreement extends broadly across middle and deep layers in Llama and Gemma.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">5.c</span><h4>Vision ↔ Language</h4></div>
-      <button class="figure-open" data-figure="sample_vl" aria-label="Enlarge Vision ↔ Language"><img src="assets/figures/sample_vl.svg" loading="lazy" alt="Layer-wise Cross-Model similarity between DINO-ViT-Large and Llama3-8B."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Language layers align most strongly with the deeper, more semantic layers of the vision encoder. <a href="assets/pdf/sample_vl.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Vision ↔ Language</h4></div>
+      <div class="figure-frame"><img src="assets/figures/sample_vl.svg" loading="lazy" alt="Layer-wise Cross-Model similarity between DINO-ViT-Large and Llama3-8B."></div>
+      <figcaption>Language layers align most strongly with the deeper, more semantic layers of the vision encoder.</figcaption>
     </figure></div>
     </section><section class="experiment-part" id="dynamics" aria-labelledby="dynamics-title">
       <div class="experiment-heading"><span class="part-index">04</span><div><h3 id="dynamics-title">Dynamics</h3><p>Training objectives affect positions and directions differently. Fine-tuning reduces displacement agreement; feature distillation raises both measures; relational distillation improves directional agreement while leaving pointwise similarity nearly unchanged.</p></div></div>
       <div class="figure-grid dynamics-grid"><figure>
-      <div class="plot-heading"><span class="plot-index">6.a</span><h4>Fine-tuning</h4></div>
-      <button class="figure-open" data-figure="dynamics_finetune" aria-label="Enlarge Fine-tuning"><img src="assets/figures/dynamics_finetune.svg" loading="lazy" alt="Ten-epoch fine-tuning trajectories of Pointwise and Cross-Model similarity."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Pointwise changes by less than 0.05, while deep-layer Cross-Model falls from 1.0 to 0.72. <a href="assets/pdf/dynamics_finetune.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Fine-Tuning</h4></div>
+      <div class="figure-frame"><img src="assets/figures/dynamics_finetune.svg" loading="lazy" alt="Ten-epoch fine-tuning trajectories of Pointwise and Cross-Model similarity."></div>
+      <figcaption>Pointwise changes by less than 0.05, while deep-layer Cross-Model falls from 1.0 to 0.72.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">6.b</span><h4>Relational distillation</h4></div>
-      <button class="figure-open" data-figure="dynamics_rkd" aria-label="Enlarge Relational distillation"><img src="assets/figures/dynamics_rkd.svg" loading="lazy" alt="Relational distillation improves directional agreement while Pointwise remains nearly unchanged."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Cross-Model rises from 0.32 to 0.74; Pointwise stays around 0.32–0.35. <a href="assets/pdf/dynamics_rkd.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Relational Distillation</h4></div>
+      <div class="figure-frame"><img src="assets/figures/dynamics_rkd.svg" loading="lazy" alt="Relational distillation improves directional agreement while Pointwise remains nearly unchanged."></div>
+      <figcaption>Cross-Model rises from 0.32 to 0.74; Pointwise stays around 0.32–0.35.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">6.c</span><h4>Feature distillation</h4></div>
-      <button class="figure-open" data-figure="dynamics_fkd" aria-label="Enlarge Feature distillation"><img src="assets/figures/dynamics_fkd.svg" loading="lazy" alt="Feature distillation increases both Pointwise and Cross-Model agreement."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Pointwise rises from 0.50 to 0.70, and Cross-Model from 0.48 to 0.62. <a href="assets/pdf/dynamics_fkd.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Feature Distillation</h4></div>
+      <div class="figure-frame"><img src="assets/figures/dynamics_fkd.svg" loading="lazy" alt="Feature distillation increases both Pointwise and Cross-Model agreement."></div>
+      <figcaption>Pointwise rises from 0.50 to 0.70, and Cross-Model from 0.48 to 0.62.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">6.d</span><h4>Training from scratch</h4></div>
-      <button class="figure-open" data-figure="scratch_raw" aria-label="Enlarge Training from scratch"><img src="assets/figures/scratch_raw.svg" loading="lazy" alt="Pointwise, Cross-Model, and classification accuracy during supervised training from scratch."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Supervised training from random initialization provides a reference for the 100-epoch experiments. <a href="assets/pdf/scratch_raw.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Training From Scratch</h4></div>
+      <div class="figure-frame"><img src="assets/figures/scratch_raw.svg" loading="lazy" alt="Pointwise, Cross-Model, and classification accuracy during supervised training from scratch."></div>
+      <figcaption>Supervised training from random initialization provides a reference for the 100-epoch experiments.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">6.e</span><h4>Scratch + relational distillation</h4></div>
-      <button class="figure-open" data-figure="scratch_rkd" aria-label="Enlarge Scratch + relational distillation"><img src="assets/figures/scratch_rkd.svg" loading="lazy" alt="Training from scratch with relational distillation preferentially increases Cross-Model similarity."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Adding relational supervision improves directional agreement without a comparable rise in Pointwise. <a href="assets/pdf/scratch_rkd.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Scratch + Relational Distillation</h4></div>
+      <div class="figure-frame"><img src="assets/figures/scratch_rkd.svg" loading="lazy" alt="Training from scratch with relational distillation preferentially increases Cross-Model similarity."></div>
+      <figcaption>Adding relational supervision improves directional agreement without a comparable rise in Pointwise.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">6.f</span><h4>Scratch + feature distillation</h4></div>
-      <button class="figure-open" data-figure="scratch_fkd" aria-label="Enlarge Scratch + feature distillation"><img src="assets/figures/scratch_fkd.svg" loading="lazy" alt="Training from scratch with feature distillation increases Pointwise and Cross-Model similarity."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Direct feature matching raises both positional and directional agreement from random initialization. <a href="assets/pdf/scratch_fkd.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Scratch + Feature Distillation</h4></div>
+      <div class="figure-frame"><img src="assets/figures/scratch_fkd.svg" loading="lazy" alt="Training from scratch with feature distillation increases Pointwise and Cross-Model similarity."></div>
+      <figcaption>Direct feature matching raises both positional and directional agreement from random initialization.</figcaption>
     </figure></div>
     </section><section class="experiment-part" id="decomposition" aria-labelledby="decomposition-title">
       <div class="experiment-heading"><span class="part-index">05</span><div><h3 id="decomposition-title">Decomposition</h3><p>A label-free cross-model consensus decomposition separates high-consensus shared directions from low-consensus private directions. Shared subspaces retain more linearly decodable semantics, while shared and private components remain nonlinearly related.</p></div></div>
       <div class="figure-grid three-up"><figure>
-      <div class="plot-heading"><span class="plot-index">7.a</span><h4>Cross-model agreement</h4></div>
-      <button class="figure-open" data-figure="disentangle_cross" aria-label="Enlarge Cross-model agreement"><img src="assets/figures/disentangle_cross.svg" loading="lazy" alt="Cross-Model similarity in original, shared, and private representations as subspace dimension varies."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>At matched dimensions, shared components exhibit stronger displacement agreement than private components. <a href="assets/pdf/disentangle_cross.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Cross-Model Agreement</h4></div>
+      <div class="figure-frame"><img src="assets/figures/disentangle_cross.svg" loading="lazy" alt="Cross-Model similarity in original, shared, and private representations as subspace dimension varies."></div>
+      <figcaption>At matched dimensions, shared components exhibit stronger displacement agreement than private components.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">7.b</span><h4>Linearly decodable semantics</h4></div>
-      <button class="figure-open" data-figure="disentangle_lp" aria-label="Enlarge Linearly decodable semantics"><img src="assets/figures/disentangle_lp.svg" loading="lazy" alt="ImageNet linear-probe accuracy in original, shared, and private subspaces."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>Shared subspaces retain more ImageNet linear-probe accuracy at small dimension ratios. <a href="assets/pdf/disentangle_lp.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Linearly Decodable Semantics</h4></div>
+      <div class="figure-frame"><img src="assets/figures/disentangle_lp.svg" loading="lazy" alt="ImageNet linear-probe accuracy in original, shared, and private subspaces."></div>
+      <figcaption>Shared subspaces retain more ImageNet linear-probe accuracy at small dimension ratios.</figcaption>
     </figure><figure>
-      <div class="plot-heading"><span class="plot-index">7.c</span><h4>Nonlinear dependence</h4></div>
-      <button class="figure-open" data-figure="disentangle_hsic" aria-label="Enlarge Nonlinear dependence"><img src="assets/figures/disentangle_hsic.svg" loading="lazy" alt="Normalized HSIC between shared and private components using linear and RBF kernels."><span class="zoom-cue" aria-hidden="true">↗</span></button>
-      <figcaption>RBF-kernel HSIC exceeds linear-kernel HSIC, indicating nonlinear dependence between shared and private components. <a href="assets/pdf/disentangle_hsic.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+      <div class="plot-heading"><h4>Nonlinear Dependence</h4></div>
+      <div class="figure-frame"><img src="assets/figures/disentangle_hsic.svg" loading="lazy" alt="Normalized HSIC between shared and private components using linear and RBF kernels."></div>
+      <figcaption>RBF-kernel HSIC exceeds linear-kernel HSIC, indicating nonlinear dependence between shared and private components.</figcaption>
     </figure></div>
     </section>      </div>
     </section>
     <section class="section" id="application">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">04 / From geometry to capability transfer</p><h2>Application</h2><h3 class="application-title">ShadowCLIP</h3><p>Shadow Casting reuses frozen model representations to train lightweight transfer modules. Our proof of concept, <strong>ShadowCLIP</strong>, combines CLIP with DINO’s visual features and relational supervision from an LLM.</p></div>
-        <div class="shadow-layout"><figure class="architecture"><button class="figure-open" data-figure="framework" aria-label="Enlarge the ShadowCLIP architecture"><img src="assets/figures/framework.svg" loading="lazy" width="689" height="629" alt="ShadowCLIP architecture: a gated SwiGLU combines frozen CLIP and DINO visual features; a residual MLP on CLIP text features receives relational distillation from LLM2Vec."><span class="zoom-cue" aria-hidden="true">↗</span></button><figcaption><strong>ShadowCLIP.</strong> All three pretrained backbones are frozen. Only lightweight residual modules and associated parameters are optimized. <a href="assets/pdf/framework.pdf" target="_blank" rel="noopener">Original PDF ↗</a></figcaption></figure><div class="shadow-steps"><div class="numbered-finding"><span>01</span><div><h3>Extract the shadows.</h3><p>Run the training set through frozen CLIP, DINO, and the language teacher once. Cache their representations for reuse.</p></div></div><div class="numbered-finding"><span>02</span><div><h3>Connect complementary strengths.</h3><p>A CLIP-gated SwiGLU residual incorporates DINO features. A text-side MLP learns semantic relations from LLM2Vec-Gen-Qwen3-4B.</p></div></div><div class="numbered-finding"><span>03</span><div><h3>Train the small modules.</h3><p>Use image–text contrastive learning and relational distillation on CC12M. Zero-initialized gates preserve CLIP’s initial behavior.</p></div></div><div class="inference-note"><strong>At inference</strong><p>The LLM teacher is removed. The vision branch still uses both CLIP and DINO for new images.</p></div></div></div>
+        <div class="shadow-layout"><figure class="architecture"><div class="figure-frame"><img src="assets/figures/framework.svg" loading="lazy" width="689" height="629" alt="ShadowCLIP architecture: a gated SwiGLU combines frozen CLIP and DINO visual features; a residual MLP on CLIP text features receives relational distillation from LLM2Vec."></div><figcaption><strong>ShadowCLIP.</strong> All three pretrained backbones are frozen. Only lightweight residual modules and associated parameters are optimized.</figcaption></figure><div class="shadow-steps"><section class="training-phase" aria-labelledby="training-phase-title"><h3 class="phase-label" id="training-phase-title">Training</h3><div class="numbered-finding"><span>01</span><div><h4>Extract the shadows.</h4><p>Run the training set through frozen CLIP, DINO, and the language teacher once. Cache their representations for reuse.</p></div></div><div class="numbered-finding"><span>02</span><div><h4>Connect complementary strengths.</h4><p>A CLIP-gated SwiGLU residual incorporates DINO features. A text-side MLP learns semantic relations from LLM2Vec-Gen-Qwen3-4B.</p></div></div><div class="numbered-finding"><span>03</span><div><h4>Train the small modules.</h4><p>Use image–text contrastive learning and relational distillation on CC12M. Zero-initialized gates preserve CLIP’s initial behavior.</p></div></div></section><section class="inference-note" aria-labelledby="inference-phase-title"><h3 class="phase-label" id="inference-phase-title">Inference</h3><p>Encode new images with CLIP and DINO, then combine their features through the trained Vision Connector. Encode text with CLIP and the trained text residual. The LLM teacher is no longer needed.</p></section></div></div>
         <div class="compute-strip"><div><strong>95<span>%</span></strong><p>fewer trainable parameters<small>20M vs. 400M · CLIP-Large</small></p></div><div><strong>9<span>×</span></strong><p>less total FLOPs<small>including caching · 3 training epochs</small></p></div><div><strong>2,000<span>×</span></strong><p>less training-phase FLOPs<small>after feature precomputation</small></p></div></div>
         <div class="application-results" id="results">
         <div class="section-heading"><p class="eyebrow">Classification · Retrieval · Visual understanding</p><h3>Experimental results</h3><p>Evaluation spans 11 zero-shot classification datasets, image–text retrieval on COCO and Flickr30k, and visual-centric understanding on MMVP.</p></div>
-        <div class="results-highlights"><div><strong>+3.6<small>pp</small></strong><p>Average zero-shot accuracy<small>over CLIP-Base · 11 datasets</small></p></div><div><strong>+9.6<small>pp</small></strong><p>Visual-centric understanding<small>MMVP · CLIP-Large: 20.0 → 29.6</small></p></div><div><strong>89.9<small>%</small></strong><p>Flickr30k image-to-text R@1<small>ShadowCLIP-Large</small></p></div></div>
         <div class="results-toolbar"><div class="segmented" role="tablist" aria-label="ShadowCLIP backbone"><button role="tab" id="large-tab" aria-selected="true" aria-controls="results-panel" data-variant="large" tabindex="0">ViT-Large</button><button role="tab" id="base-tab" aria-selected="false" aria-controls="results-panel" data-variant="base" tabindex="-1">ViT-Base</button></div><label class="table-toggle"><input type="checkbox" id="full-results"> Show all 16 benchmarks</label></div>
         <div id="results-panel" role="tabpanel" aria-labelledby="large-tab"><div class="table-scroll" tabindex="0" role="region" aria-label="ShadowCLIP results table, scroll horizontally for all benchmarks"><table id="results-table"><caption>Selected results · ViT-Large · scores in percent</caption><thead><tr><th scope="col">Method</th><th scope="col">ImageNet-1K</th><th scope="col">COCO I2T</th><th scope="col">COCO T2I</th><th scope="col">Flickr30k I2T</th><th scope="col">Flickr30k T2I</th><th scope="col">MMVP</th></tr></thead><tbody><tr><th scope="row">CLIP</th><td>72.7</td><td>59.7</td><td>43.0</td><td>87.6</td><td>70.2</td><td>20.0</td></tr><tr><th scope="row">SAIL-NV2</th><td>72.1</td><td>57.3</td><td class="best">45.3</td><td>84.9</td><td class="best">73.0</td><td>28.0</td></tr><tr><th scope="row">CLIP-FT</th><td>69.3</td><td>55.6</td><td>42.7</td><td>82.5</td><td>68.9</td><td>19.3</td></tr><tr><th scope="row">w/o RKD</th><td>70.2</td><td>56.6</td><td>43.5</td><td>82.1</td><td>70.3</td><td>20.0</td></tr><tr class="ours"><th scope="row">ShadowCLIP</th><td class="best">76.5</td><td class="best">64.0</td><td>44.4</td><td class="best">89.9</td><td>72.4</td><td class="best">29.6</td></tr></tbody></table></div></div>
-        <p class="data-note">Table 1 in the paper. I2T / T2I: image-to-text / text-to-image retrieval R@1. Bold marks the best result within the selected model size; “—” indicates an unreported result.</p><p class="results-context">SAIL uses an LLM text encoder at inference; ShadowCLIP retains CLIP’s text encoder. Computational figures above concern training, and include caching only where specified.</p>
+        <p class="data-note">I2T / T2I: image-to-text / text-to-image retrieval R@1. Bold marks the best result within the selected model size; “—” indicates an unreported result.</p><p class="results-context">SAIL uses an LLM text encoder at inference; ShadowCLIP retains CLIP’s text encoder. Computational figures above concern training, and include caching only where specified.</p>
         </div>
       </div>
     </section>
@@ -226,7 +227,6 @@
 
   <footer><div class="container footer-inner"><a class="brand" href="#top"><img src="assets/favicon.svg" alt="" width="27" height="27"><span>Displacement Geometry</span></a><p>Dartmouth College · 2026</p><p class="footer-credit">Page design inspired by <a href="https://visual-abstention.github.io/" target="_blank" rel="noopener">Visual Abstention</a>.</p></div></footer>
 
-  <dialog id="figure-dialog" aria-labelledby="dialog-title"><div class="dialog-toolbar"><h2 id="dialog-title">Figure</h2><a id="dialog-pdf" class="text-link" href="assets/pdf/metric_schematic.pdf" target="_blank" rel="noopener">Original PDF ↗</a><button id="dialog-close" aria-label="Close enlarged figure">×</button></div><div class="dialog-image-wrap"><img id="dialog-image" src="assets/figures/metric_schematic.svg" alt=""></div><p id="dialog-caption"></p></dialog>
-  <noscript><p class="noscript-note">The paper, figures, and ViT-Large results are available without JavaScript. Enable JavaScript to switch result views, enlarge figures, and copy the citation.</p></noscript>
+  <noscript><p class="noscript-note">The paper, figures, and ViT-Large results are available without JavaScript. Enable JavaScript to switch result views and copy the citation.</p></noscript>
 </body>
 </html>

@@ -21,10 +21,10 @@ python -m http.server 8000 --bind 127.0.0.1
 ## 文件
 
 - `index.html`：论文介绍、作者、资源链接、图表、方法、结果和引用。
-- `styles.css`：响应式样式、本地字体、移动端导航、图表放大视图。
-- `app.js`：Base／Large 结果切换、完整表格、图表放大、引用复制。
+- `styles.css`：响应式样式、本地字体、移动端导航与图表布局。
+- `app.js`：Base／Large 结果切换、完整表格、引用复制。
 - `assets/figures/`：从论文 PDF 原图导出的 27 份矢量 SVG。
-- `assets/pdf/`：27 份原始 PDF 图，可从页面或放大视图下载。
+- `assets/pdf/`：27 份原始 PDF 图，保留作源素材；页面直接展示 SVG，不提供 PDF 或放大入口。
 - `assets/results.json`：从 LaTeX Table 1 提取的数据，包含全部 16 个 benchmark。
 - `assets/figure-manifest.json`：图表与原始 LaTeX 文件的对应关系。
 - `assets/fonts/`：本地 Inter 字体及其 SIL Open Font License；页面不依赖外部字体服务。
@@ -69,3 +69,5 @@ git push origin gh-pages
 
 
 性能说明区分缓存后的训练阶段与包含缓存的总计算量，也说明推理时仍使用 DINO。所有论文图表与研究内容的权利归原作者所有；字体许可见 `assets/fonts/OFL.txt`。
+
+标题上方展示 NeurIPS 2026 接收信息。地图比喻采用桌面左右布局，ShadowCLIP 说明区分 Training 与 Inference，实验结果直接显示交互表格。
