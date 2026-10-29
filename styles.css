@@ -140,7 +140,7 @@
 .hero .title-rest{line-height:1.3;margin-top:8px}
 .hero-eyebrow{font-size:11px;letter-spacing:.14em}
 .figure-frame{cursor:default}
-.metaphor-layout{display:grid;grid-template-columns:.9fr 1.1fr;align-items:center;gap:44px}
+.metaphor-layout{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:44px}
 .metaphor-layout .metaphor-copy{max-width:none;margin:0;text-align:left;font-size:15px;line-height:1.95}
 .metaphor-layout .metaphor-figure{min-width:0;margin:0;width:100%}
 .metaphor-layout .metaphor-figure figcaption{font-size:11px;line-height:1.85;margin-top:13px}
@@ -172,3 +172,7 @@
   .metaphor-layout .metaphor-figure figcaption{font-size:10px}
   .inference-note p{font-size:11px}
 }
+
+.hero .hero-eyebrow{color:#000;text-transform:none;letter-spacing:.05em}
+.hero .eyebrow-line{background:#000}
+.training-phase .phase-label,.inference-note .phase-label{text-transform:none}

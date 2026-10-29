@@ -65,9 +65,9 @@ git push origin gh-pages
 
 ## 内容与设计说明
 
-版式参考 [Visual Abstention](https://visual-abstention.github.io/)，以本论文的文字、图表和交互重新实现，页脚保留设计致谢。项目页没有框架、分析追踪器或外部运行时依赖。
+版式参考 [Visual Abstention](https://visual-abstention.github.io/)，以本论文的文字、图表和交互重新实现。项目页没有框架、分析追踪器或外部运行时依赖。
 
 
 性能说明区分缓存后的训练阶段与包含缓存的总计算量，也说明推理时仍使用 DINO。所有论文图表与研究内容的权利归原作者所有；字体许可见 `assets/fonts/OFL.txt`。
 
-标题上方展示 NeurIPS 2026 接收信息。地图比喻采用桌面左右布局，ShadowCLIP 说明区分 Training 与 Inference，实验结果直接显示交互表格。
+标题上方展示 NeurIPS 2026 接收信息。地图比喻采用桌面左图右文布局，ShadowCLIP 说明区分 Training 与 Inference，实验结果直接显示交互表格。
