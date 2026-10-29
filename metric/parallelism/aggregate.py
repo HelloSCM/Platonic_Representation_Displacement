@@ -1,0 +1,156 @@
+"""Summarize model-pair scores and paired significance tests."""
+
+import csv
+import json
+from collections import defaultdict
+from pathlib import Path
+
+import numpy as np
+from scipy.stats import wilcoxon
+
+from ..core import METRICS
+from ..io import make_output, write_csv, write_json
+
+
+def adjust_bh(pvalues):
+    """Apply the Benjamini-Hochberg correction to a family of tests."""
+    pvalues = np.asarray(pvalues)
+    order = np.argsort(pvalues)
+    adjusted = np.minimum.accumulate(
+        (pvalues[order] * len(order) / np.arange(1, len(order) + 1))[::-1]
+    )
+    result = np.empty(len(order))
+    result[order] = np.minimum(adjusted[::-1], 1)
+    return result
+
+
+def reduce_layers(rows, mode):
+    """Average each metric over all layer pairs or the final layer pair."""
+    if mode == "last":
+        a = sorted({row["layer_a"] for row in rows})[-1]
+        b = sorted({row["layer_b"] for row in rows})[-1]
+        rows = [row for row in rows if row["layer_a"] == a and row["layer_b"] == b]
+    return {metric: float(np.mean([float(row[metric]) for row in rows])) for metric in METRICS}
+
+
+def read_pair(path, mode):
+    """Load a model pair's configuration, comparison group, and layer-averaged metrics."""
+    path = Path(path)
+    with (path / "config.json").open(encoding="utf-8") as f:
+        config = json.load(f)
+    if config["analysis"] != "parallelism":
+        raise ValueError(f"Expected a parallelism run: {path}")
+    a, b = config["a"], config["b"]
+    if a["path"] == b["path"]:
+        return None, config
+    modalities = {a["metadata"]["modality"], b["metadata"]["modality"]}
+    if not modalities <= {"vision", "language"}:
+        raise ValueError("Model modalities must be vision or language.")
+    group = (
+        "V-L" if len(modalities) == 2 else {"vision": "V-V", "language": "L-L"}[modalities.pop()]
+    )
+    flags = [bool(item["metadata"].get("random", False)) for item in (a, b)]
+    condition = "random" if all(flags) else "mixed" if any(flags) else "trained"
+    with (path / "results.csv").open(encoding="utf-8", newline="") as f:
+        scores = reduce_layers(list(csv.DictReader(f)), mode)
+    return {
+        "level": config["level"],
+        "dim": config["dim"],
+        "group": group,
+        "condition": condition,
+        "model_a": a["metadata"].get("model", a["path"]),
+        "model_b": b["metadata"].get("model", b["path"]),
+        "source_a": a["path"],
+        "source_b": b["path"],
+        "run": str(path.resolve()),
+        **scores,
+    }, config
+
+
+def run(args):
+    """Aggregate model-pair metrics and compute paired significance tests."""
+    if args.bootstrap < 2:
+        raise ValueError("At least two bootstrap draws are required.")
+    pairs, seen, settings = [], set(), {}
+    for path in args.inputs:
+        row, config = read_pair(path, args.layers)
+        if row is None:
+            continue
+        key = (row["level"], row["dim"], *sorted((row["source_a"], row["source_b"])))
+        if key in seen:
+            raise ValueError(f"Repeated model pair: {path}")
+        seen.add(key)
+        key = (row["level"], row["dim"])
+        protocol = tuple(config[name] for name in ("fit_size", "eval_size", "pairs", "eps", "seed"))
+        if key in settings and settings[key] != protocol:
+            raise ValueError("Runs at the same level and dimension must share evaluation settings.")
+        settings[key] = protocol
+        pairs.append(row)
+    if not pairs:
+        raise ValueError("No distinct model pairs were supplied.")
+    out = make_output(args.output)
+    write_json(
+        out / "config.json",
+        {
+            "analysis": "aggregate",
+            "layers": args.layers,
+            "bootstrap": args.bootstrap,
+            "seed": args.seed,
+            "inputs": [str(Path(path).resolve()) for path in args.inputs],
+        },
+    )
+    write_csv(out / "model_pairs.csv", pairs)
+    groups = defaultdict(list)
+    for row in pairs:
+        groups[tuple(row[key] for key in ("level", "dim", "group", "condition"))].append(row)
+    summary, tests = [], []
+    rng = np.random.default_rng(args.seed)
+    for key, rows in sorted(groups.items()):
+        base = dict(zip(("level", "dim", "group", "condition"), key))
+        for metric in METRICS:
+            values = [row[metric] for row in rows]
+            summary.append(
+                {
+                    **base,
+                    "metric": metric,
+                    "mean": float(np.mean(values)),
+                    "std": float(np.std(values)),
+                    "n_pairs": len(rows),
+                }
+            )
+        if base["condition"] != "trained":
+            continue
+        delta = np.array([row["cross_model"] - row["pointwise"] for row in rows])
+        medians = np.median(rng.choice(delta, size=(args.bootstrap, len(delta))), axis=1)
+        pvalue = float(wilcoxon(delta, alternative="greater").pvalue) if np.any(delta) else 1.0
+        tests.append(
+            {
+                **base,
+                "n_pairs": len(rows),
+                "median_delta": float(np.median(delta)),
+                "bootstrap_se": float(medians.std(ddof=1)),
+                "pvalue": pvalue,
+            }
+        )
+    for dim in sorted({row["dim"] for row in tests}):
+        family = [row for row in tests if row["dim"] == dim]
+        for row, adjusted in zip(family, adjust_bh([row["pvalue"] for row in family])):
+            row.update(pvalue_bh=float(adjusted), n_tests=len(family))
+    write_csv(out / "summary.csv", summary)
+    write_csv(
+        out / "significance.csv",
+        tests,
+        fields=[
+            "level",
+            "dim",
+            "group",
+            "condition",
+            "n_pairs",
+            "median_delta",
+            "bootstrap_se",
+            "pvalue",
+            "pvalue_bh",
+            "n_tests",
+        ],
+    )
+    return summary

@@ -1,0 +1,12 @@
+numpy
+torch
+torchvision
+timm
+open_clip_torch>=3.3
+transformers>=4.56.2,<6
+Pillow
+tqdm
+datasets
+scipy
+nltk
+matplotlib
