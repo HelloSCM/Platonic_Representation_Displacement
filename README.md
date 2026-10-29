@@ -4,14 +4,14 @@
 
 <h1>Displacement Geometry of PRH</h1>
 
-<p><a href="https://arxiv.org/abs/2609.24209"><img src="assets/readme/paper.svg" alt="Paper" height="36"></a> &nbsp; <a href="https://helloscm.github.io/Platonic_Representation_Displacement/"><img src="assets/readme/project.svg" alt="Project Home Page" height="36"></a></p>
+<p><a href="https://arxiv.org/abs/2609.24209"><img src="assets/readme/paper.svg" alt="Paper" height="36"></a> &nbsp; <a href="https://helloscm.github.io/Platonic_Representation_Displacement/"><img src="assets/readme/project.svg" alt="Project" height="36"></a></p>
 
-<p><strong>Accepted at NeurIPS 2026</strong></p>
+<p><em>Accepted at NeurIPS 2026</em></p>
 
-<p><em>Displacement Geometry Captures Platonic Shared Reality<br>Across Models and Modalities</em></p>
+<p><strong>Displacement Geometry Captures Platonic Shared Reality<br>Across Models and Modalities</strong></p>
 
 <p>
-<a href="mailto:chenming.shang@dartmouth.edu">Chenming Shang</a><sup>*</sup>, Yujin Tang, Junjie Ouyang,<br>
+Chenming Shang<sup>*</sup>, Yujin Tang, Junjie Ouyang,<br>
 Ruize Xu, Adam Breuer<sup>†</sup>, Nikhil Singh<sup>†</sup>
 </p>
 
