@@ -119,7 +119,7 @@
       <p class="data-note">All three panels report cosine similarity, not task accuracy. PCA, whitening, and OPA are fitted on an alignment split and evaluated on disjoint inputs.</p>
     </section>
     <section class="experiment-part" id="orthogonality" aria-labelledby="orthogonality-title">
-      <div class="experiment-heading"><span class="part-index">02</span><div><h3 id="orthogonality-title">Orthogonality</h3><p>Parent–child geometry persists across layers. Controlled simulations test its role in sample-level parallelism by disrupting concept-level parallelism or orthogonality.</p></div></div>
+      <div class="experiment-heading"><span class="part-index">02</span><div><h3 id="orthogonality-title">Orthogonality</h3><p>Parent concepts are approximately orthogonal to the increments toward their children, allowing child-specific features to vary without disturbing the parent component. When samples are modeled as weighted combinations of concepts, <strong class="accent-text">within-model orthogonality and cross-model concept-level parallelism jointly explain sample-level parallelism.</strong> Samples inherit a noisier version of the shared concept geometry: disrupting either condition weakens sample-level parallelism in controlled simulations.</p></div></div>
       <div class="figure-grid orthogonality-grid"><figure>
       <div class="plot-heading"><h4>Geometry Across Layers</h4></div>
       <div class="figure-frame"><img src="assets/figures/concept_layer.svg" loading="lazy" alt="Cosine similarities for parent, child, sibling, and their displacements across transformer layers."></div>
@@ -127,11 +127,11 @@
     </figure><figure>
       <div class="plot-heading"><h4>Disrupting Concept Parallelism</h4></div>
       <div class="figure-frame"><img src="assets/figures/failure_parallel.svg" loading="lazy" alt="Simulation heatmap showing sample-level agreement decreasing as concept-level parallelism is weakened."></div>
-      <figcaption>In simulation, sample-level directional agreement tracks concept-level Cross-Model similarity, rather than cross-model offsets.</figcaption>
+      <figcaption>Breaking cross-model concept parallelism weakens sample-level parallelism. Sample-level agreement tracks concept-level Cross-Model similarity, not Cross-Object offsets.</figcaption>
     </figure><figure>
       <div class="plot-heading"><h4>Disrupting Orthogonality</h4></div>
       <div class="figure-frame"><img src="assets/figures/failure_orthogonal.svg" loading="lazy" alt="Simulation curves showing sample-level agreement falling when concept increments cease to be orthogonal to parents."></div>
-      <figcaption>In simulation, sample-level parallelism peaks at zero parent–child-increment cosine and weakens as orthogonality is disrupted.</figcaption>
+      <figcaption>Breaking parent–child-increment orthogonality also weakens sample-level parallelism, which peaks at zero parent–increment cosine.</figcaption>
     </figure></div>
     </section><section class="experiment-part" id="modality" aria-labelledby="modality-title">
       <div class="experiment-heading"><span class="part-index">03</span><div><h3 id="modality-title">Modality</h3><p>Shared directional structure appears at different depths across modalities: corresponding vision layers align, language alignment spans many layers, and cross-modal agreement concentrates in deep vision layers.</p></div></div>
