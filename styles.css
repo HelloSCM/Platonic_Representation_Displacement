@@ -27,7 +27,7 @@
 
 /* Paper narrative: metaphor, geometry, experiments, and application. */
 .hero .title-main{color:#00693e;font-weight:800}
-.title-platonic{color:#12312b;font-weight:800}
+.title-platonic{color:#267aba;font-weight:800}
 .authors .author-lead{font-weight:400}
 .contact-note{text-align:center;font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.8}
 .contact-note a{color:var(--purple);text-decoration:none;overflow-wrap:anywhere}
@@ -44,7 +44,7 @@
 .geometry-pair{display:grid;gap:32px;align-items:start}
 .geometry-card{min-width:0}
 .geometry-card>h3{font-size:22px;line-height:1.35;text-align:center;margin:0 0 22px;color:#00693e}
-.geometry-card:nth-child(2)>h3{color:#12312b}
+.geometry-card:nth-child(2)>h3{color:#267aba}
 .geometry-card .figure-frame{padding:22px;aspect-ratio:4 / 3;display:grid;place-items:center}
 .geometry-card .figure-frame img{width:100%;height:100%;min-height:0;object-fit:contain;aspect-ratio:auto}
 .geometry-card figcaption{font-size:13px;line-height:1.9;margin-top:19px}
