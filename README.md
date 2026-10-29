@@ -1,7 +1,41 @@
-# Displacement Geometry
+<div align="center">
 
-Code for *Displacement Geometry Captures Platonic Shared Reality Across Models
-and Modalities*.
+<img src="assets/readme/mark.svg" alt="" width="56" height="56">
+
+<h1>Displacement Geometry of PRH</h1>
+
+<p><a href="https://arxiv.org/abs/2609.24209"><img src="assets/readme/paper.svg" alt="Paper" height="36"></a> &nbsp; <a href="https://helloscm.github.io/Platonic_Representation_Displacement/"><img src="assets/readme/project.svg" alt="Project Home Page" height="36"></a></p>
+
+<p><strong>Accepted at NeurIPS 2026</strong></p>
+
+<p><em>Displacement Geometry Captures Platonic Shared Reality<br>Across Models and Modalities</em></p>
+
+<p>
+<a href="mailto:chenming.shang@dartmouth.edu">Chenming Shang</a><sup>*</sup>, Yujin Tang, Junjie Ouyang,<br>
+Ruize Xu, Adam Breuer<sup>†</sup>, Nikhil Singh<sup>†</sup>
+</p>
+
+<p>Department of Computer Science · Dartmouth College</p>
+
+<p><sub>* <a href="mailto:chenming.shang@dartmouth.edu">chenming.shang@dartmouth.edu</a> &nbsp; · &nbsp; † Co-corresponding authors</sub></p>
+
+<p>
+<a href="#preparation">Preparation</a> &nbsp; · &nbsp;
+<a href="#cross-model-parallelism">Parallelism</a> &nbsp; · &nbsp;
+<a href="#concept-orthogonality">Orthogonality</a> &nbsp; · &nbsp;
+<a href="#training-dynamics">Dynamics</a> &nbsp; · &nbsp;
+<a href="#decomposition">Decomposition</a> &nbsp; · &nbsp;
+<a href="#shadowclip">ShadowCLIP</a> &nbsp; · &nbsp;
+<a href="#citation">Citation</a>
+</p>
+
+</div>
+
+---
+
+<a id="overview"></a>
+
+## 🧭 Overview
 
 Independently trained models converge on a shared Platonic representation,
 captured by the directions between samples in representation space. Across 44
@@ -17,15 +51,32 @@ once, then train lightweight modules to transfer its capabilities. Our
 **ShadowCLIP** instantiation combines frozen CLIP and DINO representations with
 relational supervision from an LLM teacher.
 
-[Paper](https://arxiv.org/abs/2609.24209) ·
-[Project page](https://helloscm.github.io/Platonic_Representation_Displacement/)
+<p align="center">
+<a href="assets/model_similarity.svg"><img src="assets/model_similarity.svg" alt="All-to-all similarity across 44 vision and language models" width="900"></a>
+</p>
 
-[![All-to-all similarity across 44 vision and language models](assets/model_similarity.svg)](assets/model_similarity.svg)
+<p align="center"><sub>All-to-all similarity across 44 models. Top: sample level. Bottom: concept level.<br>Left: Pointwise. Right: Cross-Model. Click the image to inspect the full matrices.</sub></p>
 
-All-to-all similarity across 44 models. Top: sample level. Bottom: concept level.
-Left: Pointwise. Right: Cross-Model. Click the image to inspect the full matrices.
+<a id="repository-guide"></a>
 
-## Preparation
+## 🗂️ Repository Guide
+
+| Section | Module | What It Covers |
+| :--- | :--- | :--- |
+| [Preparation](#preparation) | [representation/](representation/) | Feature extraction, concept centroids, PCA and whitening |
+| [Cross-Model Parallelism](#cross-model-parallelism) | [metric/parallelism/](metric/parallelism/) | Sample, concept, and layer-wise directional agreement |
+| [Concept Orthogonality](#concept-orthogonality) | [metric/orthogonality/](metric/orthogonality/) | Parent–child and sibling geometry |
+| [Training Dynamics](#training-dynamics) | [dynamics/](dynamics/) | Fine-tuning, feature distillation, and relational distillation |
+| [Shared/Private Decomposition](#decomposition) | [decomposition/](decomposition/) | Shared/private subspaces, linear probes, and HSIC |
+| [ShadowCLIP](#shadowclip) | [shadowclip/](shadowclip/) | Cached-feature transfer, training, and evaluation |
+| [Synthetic Concept Geometry](#synthetic-concept-geometry) | [influence/relationship/](influence/relationship/) | Controlled concept-geometry simulations |
+| [Synthetic Whitening](#synthetic-whitening) | [influence/whitening/](influence/whitening/) | Additive reconstruction under whitening |
+
+<a id="preparation"></a>
+
+## ⚙️ Preparation
+
+### Install Dependencies
 
 Use Python 3.10 or newer. Run all commands from this directory and set the path
 variables in the examples to your own data, model, and output locations.
@@ -38,6 +89,8 @@ python -m nltk.downloader wordnet
 The WordNet corpus supplies concept hierarchies. The optional `llm2vec-gen`
 package is needed only when extracting LLM2Vec-Gen teacher features; install it
 in its supported dependency environment.
+
+### Extract and Preprocess Representations
 
 `representation/` extracts vision and language features, computes concept
 centroids, and fits or applies PCA and whitening. A JSON/JSONL manifest contains
@@ -66,6 +119,8 @@ final pooled representation. Feature stores retain row IDs and extraction
 metadata. Metric commands fit PCA and whitening internally on their fitting
 split, so supply raw features to those commands.
 
+### Prepare ShadowCLIP Features
+
 For ShadowCLIP, extract final features with the following settings. Each caption
 or prompt must have its own record and ID.
 
@@ -81,7 +136,9 @@ Use matched Base or Large CLIP/DINO backbones. All training commands in
 multi-GPU execution; `--batch-size` is per GPU. Use `python -m <module> --help`
 or a subcommand's `--help` for all options.
 
-## Cross-model parallelism
+<a id="cross-model-parallelism"></a>
+
+## ↗️ Cross-Model Parallelism
 
 **Paper:** Sections 3, 4.1, 4.3, 4.4; Appendices A.1 and C.
 
@@ -108,7 +165,10 @@ Defaults are 10,000 fitting items, 10,000 disjoint evaluation items, 500 dimensi
 and 10,000 unordered evaluation pairs. Set `--layers-a`, `--layers-b`, or `--dim`
 to select layers or dimensionality.
 
-## Within-model concept orthogonality
+<a id="within-model-concept-orthogonality"></a>
+<a id="concept-orthogonality"></a>
+
+## 📐 Within-Model Concept Orthogonality
 
 **Paper:** Section 4.2; Appendix A.4.
 
@@ -126,7 +186,9 @@ actual encoded concept features; `--parent-store` can be omitted when they are
 already in the input store. A shared concept map can resolve language aliases.
 Use `--reference parent`, `random`, or `both` to select the comparison.
 
-## Training dynamics
+<a id="training-dynamics"></a>
+
+## 📈 Training Dynamics
 
 **Paper:** Section 4.5; Figure 6.
 
@@ -159,7 +221,10 @@ pretrained settings and 100 for scratch. Override models or weights through
 python -m dynamics resume --checkpoint "$DYNAMICS_CHECKPOINT" --gpus 0,1
 ```
 
-## Shared/private decomposition
+<a id="sharedprivate-decomposition"></a>
+<a id="decomposition"></a>
+
+## 🧩 Shared/Private Decomposition
 
 **Paper:** Section 4.6; Figure 7; Appendix C.
 
@@ -187,13 +252,17 @@ or `label` annotations. `--ranks` controls the dimension sweep; `--component`
 selects `shared` or `private`, and `--space` selects component coordinates or
 reconstructed original-space features.
 
-## ShadowCLIP
+<a id="shadowclip"></a>
+
+## 🌿 ShadowCLIP
 
 **Paper:** Section 5; Appendix E.
 
 `shadowclip/` trains gated visual and language residuals from frozen CLIP, DINO,
 and LLM features. It includes projection-only and no-RKD ablations, zero-shot
 classification, image–text retrieval, and MMVP evaluation.
+
+### Cache, Train, and Evaluate
 
 Pack matched CC12M features and initialize language whitening using ImageNet-1K
 training-set reference features:
@@ -217,6 +286,8 @@ python -m shadowclip evaluate --checkpoint "$SHADOWCLIP_OUT/shadowclip.pt" \
 `--variant no-rkd` for the ablations; these do not require teacher features or
 whitening during training. Resume with `train --resume "$SHADOWCLIP_CHECKPOINT"`.
 
+### Evaluation Inputs and Inference
+
 For evaluation, pack image caches with `cache --clip-vision ... --dino ...` and
 text caches with `cache --clip-text ...`, supplying `--output` for each. Create an
 evaluation JSON file and replace the cache placeholders with your paths:
@@ -236,7 +307,9 @@ Cache paths can be absolute or relative to the JSON file. The exported model
 supports inference through `shadowclip.inference.Encoder`, using frozen CLIP and
 DINO backbones.
 
-## Synthetic concept geometry
+<a id="synthetic-concept-geometry"></a>
+
+## 🧪 Synthetic Concept Geometry
 
 **Paper:** Appendix A.2; Figure 9.
 
@@ -251,7 +324,9 @@ python -m influence relationship --output "$RELATIONSHIP_OUT"
 Use `--simulation parallelism` or `--simulation orthogonality` for one sweep.
 `--coupling 0` runs the angle sweep with no cross-model increment perturbation.
 
-## Synthetic whitening
+<a id="synthetic-whitening"></a>
+
+## 💡 Synthetic Whitening
 
 **Paper:** Appendix C; Figure 11.
 
@@ -266,7 +341,9 @@ Use `--seed` to select the synthetic data. Both synthetic experiments save their
 generated data and plots. Regenerate plots with
 `python -m influence plot --input "$EXPERIMENT_OUT"`.
 
-## Citation
+<a id="citation"></a>
+
+## 📚 Citation
 
 If you find this work useful, please cite our paper:
 
