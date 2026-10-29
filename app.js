@@ -1,11 +1,5 @@
 'use strict';
 
-// Keep all reported aggregates explicit and separate from the original plot assets.
-const agreement = {
-  concept: { pointwise: [0.41, 0.36, 0.25], crossModel: [0.73, 0.91, 0.49] },
-  sample: { pointwise: [0.31, 0.36, 0.19], crossModel: [0.45, 0.73, 0.31] }
-};
-
 function setTab(button) {
   const tablist = button.closest('[role="tablist"]');
   tablist.querySelectorAll('[role="tab"]').forEach(tab => {
@@ -31,20 +25,6 @@ document.querySelectorAll('[role="tablist"]').forEach(tablist => {
       tabs[next].focus();
       tabs[next].click();
     }
-  });
-});
-
-document.querySelectorAll('[data-level]').forEach(button => {
-  button.addEventListener('click', () => {
-    setTab(button);
-    const data = agreement[button.dataset.level];
-    document.querySelectorAll('.comparison').forEach((item, index) => {
-      item.querySelector('[data-score]').textContent = data.crossModel[index].toFixed(2);
-      item.querySelector('.pointwise-value').textContent = data.pointwise[index].toFixed(2);
-      item.querySelector('.cross-model-value').textContent = data.crossModel[index].toFixed(2);
-      item.querySelector('.pointwise-bar').style.setProperty('--bar', `${data.pointwise[index] * 100}%`);
-      item.querySelector('.cross-model-bar').style.setProperty('--bar', `${data.crossModel[index] * 100}%`);
-    });
   });
 });
 

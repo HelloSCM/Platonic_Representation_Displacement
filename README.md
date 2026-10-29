@@ -22,7 +22,7 @@ python -m http.server 8000 --bind 127.0.0.1
 
 - `index.html`：论文介绍、作者、资源链接、图表、方法、结果和引用。
 - `styles.css`：响应式样式、本地字体、移动端导航、图表放大视图。
-- `app.js`：样本／概念切换、Base／Large 结果切换、完整表格、图表放大、引用复制。
+- `app.js`：Base／Large 结果切换、完整表格、图表放大、引用复制。
 - `assets/figures/`：从论文 PDF 原图导出的 27 份矢量 SVG。
 - `assets/pdf/`：27 份原始 PDF 图，可从页面或放大视图下载。
 - `assets/results.json`：从 LaTeX Table 1 提取的数据，包含全部 16 个 benchmark。
@@ -41,7 +41,7 @@ python scripts/validate-site.py
 node --check app.js
 ```
 
-脚本直接转换 PDF，保留矢量内容；不对论文曲线重绘。样本／概念层面的汇总值写在 `app.js` 的 `agreement` 中，与正文 4.1、4.3 节对应。
+脚本直接转换 PDF，保留矢量内容；不对论文曲线重绘。页面按 Metaphor → Geometry → Experiments → Application → Citation 组织。Experiments 包括 Parallelism、Orthogonality、Modality、Dynamics、Decomposition 五组。`assets/metaphor.png` 为地图比喻插图。
 
 ## GitHub Pages
 
@@ -67,6 +67,5 @@ git push origin gh-pages
 
 版式参考 [Visual Abstention](https://visual-abstention.github.io/)，以本论文的文字、图表和交互重新实现，页脚保留设计致谢。项目页没有框架、分析追踪器或外部运行时依赖。
 
-当前 Code 链接标记为 “release in progress”；完成代码整理后，可删除 `index.html` 中的 `.resource-note`。
 
 性能说明区分缓存后的训练阶段与包含缓存的总计算量，也说明推理时仍使用 DINO。所有论文图表与研究内容的权利归原作者所有；字体许可见 `assets/fonts/OFL.txt`。
