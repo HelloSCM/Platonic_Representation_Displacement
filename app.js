@@ -40,7 +40,7 @@ function renderResults() {
   const table = document.getElementById('results-table');
   table.replaceChildren();
   const caption = table.createCaption();
-  caption.textContent = `${fullResults.checked ? 'All benchmarks' : 'Selected results'} · ViT-${activeVariant === 'large' ? 'Large' : 'Base'} · scores in percent`;
+  caption.textContent = `${fullResults.checked ? 'All' : 'Selected'} ViT-${activeVariant === 'large' ? 'Large' : 'Base'} results (scores in percent)`;
   const header = table.createTHead().insertRow();
   ['Method', ...selected.map(index => resultData.columns[index])].forEach(label => {
     const th = document.createElement('th');
