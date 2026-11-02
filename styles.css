@@ -44,7 +44,7 @@
 .geometry-pair{display:grid;gap:32px;align-items:start}
 .geometry-card{min-width:0}
 .geometry-card>h3{font-size:22px;line-height:1.35;text-align:center;margin:0 0 22px;color:var(--accent)}
-.geometry-card:nth-child(2)>h3{color:var(--accent-secondary)}
+.geometry-card:nth-child(2)>h3{color:var(--accent)}
 .geometry-card .figure-frame{padding:22px;aspect-ratio:4 / 3;display:grid;place-items:center}
 .geometry-card .figure-frame img{width:100%;height:100%;min-height:0;object-fit:contain;aspect-ratio:auto}
 .geometry-card figcaption{font-size:13px;line-height:1.9;margin-top:19px}
@@ -179,7 +179,7 @@
 
 /* Shared green emphasis across the paper narrative. */
 .section-heading h2,.citation-heading h2,.experiment-heading h3,.application-results h3,.section-heading p strong{color:var(--accent)}
-.geometry-card:nth-child(2) figcaption strong{color:var(--accent-secondary)}
+.geometry-card:nth-child(2) figcaption strong{color:var(--accent)}
 
 /* Paper-led presentation: unnumbered sections and regular prose for compute. */
 .venue{text-align:center;color:#000;font-size:13px;font-weight:400;letter-spacing:0;margin:0 0 24px}
@@ -200,3 +200,12 @@
 .code-toolbar>span{font-size:11px;letter-spacing:0}
 @media(max-width:700px){.opening-section{padding-block:38px}.opening-copy{font-size:14px;line-height:1.85}.training-step p{font-size:13px}}
 @media(max-width:450px){.venue{font-size:11px}.opening-copy{font-size:13px}.compute-note{font-size:12px}.training-step p{font-size:12px}}
+
+/* Map illustration and matching application subheadings. */
+.opening-layout{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:44px}
+.opening-layout .opening-copy{margin:0;max-width:none}
+.opening-layout .metaphor-figure{margin:0;min-width:0}
+.geometry-card figcaption{color:var(--muted)}
+.application-part-heading h3,.application-results .section-heading h3{font-size:28px;line-height:1.25;color:var(--accent);margin:0 0 16px;font-weight:650}
+@media(max-width:850px){.opening-layout{gap:28px}}
+@media(max-width:700px){.opening-layout{grid-template-columns:1fr;gap:24px}.opening-layout .metaphor-figure{max-width:560px;margin-inline:auto}.application-part-heading h3,.application-results .section-heading h3{font-size:25px}}

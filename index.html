@@ -24,7 +24,7 @@
   <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2609.24209">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=green-20261029">
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=paper-editorial-20261030">
+  <link rel="stylesheet" href="styles.css?v=map-hierarchy-20261102">
   <script src="app.js?v=paper-editorial-20261030" defer></script>
 </head>
 <body>
@@ -42,7 +42,7 @@
       <a href="#top" class="brand"><img src="assets/favicon.svg?v=green-20261029" width="29" height="29" alt=""><span>Displacement Geometry of PRH</span></a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Open navigation"><span></span><span></span></button>
       <nav id="main-nav" aria-label="Main navigation">
-        <a href="#geometry">Geometry</a><a href="#experiments">Experiments</a><a href="#application">ShadowCLIP</a><a href="#citation">Citation</a>
+        <a href="#geometry">Geometry</a><a href="#experiments">Experiments</a><a href="#application">Application</a><a href="#citation">Citation</a>
       </nav>
     </div>
   </header>
@@ -76,7 +76,7 @@
     <section class="section section-tinted opening-section" id="metaphor">
       <div class="container">
         
-        <div class="opening-layout">
+        <div class="opening-layout"><figure class="metaphor-figure"><img src="assets/metaphor.png" width="1536" height="1024" alt="The same New York–Chicago journey shown on different maps and in different coordinate systems."></figure>
         
         <div class="opening-copy"><p><strong>Two maps of the same city need not agree on coordinates to give you similar directions.</strong> The displacement vectors between landmarks are preserved, even when their absolute positions on the page are not.</p><p>Neural networks enjoy an analogous freedom: each learns its own coordinate system. After alignment, does the displacement between two samples in one model point in the same direction as the displacement in another?</p></div>
         </div>
@@ -194,7 +194,8 @@
     </section>
     <section class="section" id="application">
       <div class="container">
-        <div class="section-heading"><h2>ShadowCLIP</h2><p><strong>ShadowCLIP</strong> instantiates Shadow Casting: capability transfer via a cached forward pass. A frozen CLIP backbone is augmented by two lightweight residual modules, using DINO representations and relational distillation from an LLM teacher.</p></div>
+        <div class="section-heading"><h2>Application</h2></div>
+        <div class="section-heading application-part-heading"><h3>ShadowCLIP</h3><p><strong>ShadowCLIP</strong> instantiates Shadow Casting: capability transfer via a cached forward pass. A frozen CLIP backbone is augmented by two lightweight residual modules, using DINO representations and relational distillation from an LLM teacher.</p></div>
         <div class="shadow-layout"><figure class="architecture"><div class="figure-frame"><img src="assets/figures/framework.svg" loading="lazy" width="689" height="629" alt="ShadowCLIP architecture: a gated SwiGLU combines frozen CLIP and DINO visual features; a residual MLP on CLIP text features receives relational distillation from LLM2Vec."></div><figcaption><strong>ShadowCLIP.</strong> The CLIP, DINO, and LLM backbones are frozen. Two lightweight residual modules augment the CLIP backbone.</figcaption></figure><div class="shadow-steps"><section class="training-phase" aria-labelledby="training-phase-title"><h3 class="phase-label" id="training-phase-title">Training</h3><div class="training-step"><div><h4>Cached Representations</h4><p>Freeze the CLIP, DINO, and LLM backbones and cache their representations once over the training set.</p></div></div><div class="training-step"><div><h4>Vision and Language Residuals</h4><p>A SwiGLU residual uses CLIP as a gating signal and DINO as a value; a two-layer MLP augments CLIP text features.</p></div></div><div class="training-step"><div><h4>Training Objective</h4><p>Train on CC12M with image–text contrastive loss and relational distillation from an LLM teacher. Zero-initialized gates make ShadowCLIP exactly CLIP at initialization.</p></div></div></section><section class="inference-note" aria-labelledby="inference-phase-title"><h3 class="phase-label" id="inference-phase-title">Inference</h3><p>At inference, the LLM teacher is no longer needed, while the vision branch still uses DINO to encode unseen images. ShadowCLIP retains the CLIP text encoder and its trained residual for inference efficiency.</p></section></div></div>
         <p class="compute-note">Compared with full fine-tuning of CLIP-Large, ShadowCLIP requires <strong>95% fewer trainable parameters</strong> (20M vs. 400M). Caching reduces training-phase FLOPs by a factor of <strong>2,000</strong>; including the one-time precomputation, total FLOPs over three training epochs are <strong>9× lower</strong>.</p>
         <div class="application-results" id="results">
@@ -225,7 +226,7 @@
     </section>
   </main>
 
-  <footer><div class="container footer-inner"><a class="brand" href="#top"><img src="assets/favicon.svg?v=green-20261029" alt="" width="27" height="27"><span>Displacement Geometry</span></a><p>Dartmouth College, 2026</p></div></footer>
+  <footer><div class="container footer-inner"><a class="brand" href="#top"><img src="assets/favicon.svg?v=green-20261029" alt="" width="27" height="27"><span>Displacement Geometry of PRH</span></a><p>Dartmouth College, 2026</p></div></footer>
 
   <noscript><p class="noscript-note">The paper, figures, and ViT-Large results are available without JavaScript. Enable JavaScript to switch result views and copy the citation.</p></noscript>
 </body>
