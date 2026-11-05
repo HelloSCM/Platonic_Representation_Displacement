@@ -14,7 +14,7 @@ from .alignment import fit_opa
 
 
 def prepare_layer(store, name, indices, fit_idx, eval_idx, args, save_dir=None):
-    """Fit centered whitening and restore projected means in evaluation features."""
+    """Fit whitening and compute projected means for held-out evaluation."""
     x = store.load(name)
     proc = Preprocessor(args.dim, eps=args.eps).fit(x, indices[fit_idx], batch_size=args.batch_size)
     if save_dir is not None:
@@ -22,11 +22,11 @@ def prepare_layer(store, name, indices, fit_idx, eval_idx, args, save_dir=None):
     fit = proc.transform(x[indices[fit_idx]])
     evaluation = proc.transform(x[indices[eval_idx]])
     mean = (proc.mu @ proc.basis) / proc.scale
-    return fit, evaluation + mean
+    return fit, evaluation, mean
 
 
 def run(args):
-    """Fit pairwise alignment and evaluate sample-level or concept-level parallelism."""
+    """Align model B to model A and evaluate sample or concept parallelism."""
     a, b = FeatureStore(args.a), FeatureStore(args.b)
     layers_a, layers_b = select_layers(a, args.layers_a), select_layers(b, args.layers_b)
     matches = match_items(a, b, args.level, args.concept_map)
@@ -49,7 +49,6 @@ def run(args):
             "dim": args.dim,
             "eps": args.eps,
             "method": "pca_whiten",
-            "restore_mean": True,
             "fit_size": args.fit_size,
             "eval_size": args.eval_size,
             "pairs": args.pairs,
@@ -71,16 +70,22 @@ def run(args):
     with TemporaryDirectory(prefix="metric-") as cache:
         cache = Path(cache)
         for name in layers_b:
-            fit, evaluation = prepare_layer(b, name, indices_b, fit_idx, eval_idx, args, params_b)
+            fit, evaluation, mean = prepare_layer(
+                b, name, indices_b, fit_idx, eval_idx, args, params_b
+            )
             np.save(cache / f"{name}_fit.npy", fit)
             np.save(cache / f"{name}_eval.npy", evaluation)
+            np.save(cache / f"{name}_mean.npy", mean)
         for name_a in layers_a:
-            fit_a, eval_a = prepare_layer(a, name_a, indices_a, fit_idx, eval_idx, args, params_a)
+            fit_a, eval_a, mean_a = prepare_layer(
+                a, name_a, indices_a, fit_idx, eval_idx, args, params_a
+            )
             for name_b in layers_b:
                 fit_b = np.load(cache / f"{name_b}_fit.npy", mmap_mode="r")
                 eval_b = np.load(cache / f"{name_b}_eval.npy", mmap_mode="r")
-                rotation = fit_opa(fit_a, fit_b, args.device)
-                values = compare(eval_a @ rotation, eval_b, pairs)
+                mean_b = np.load(cache / f"{name_b}_mean.npy", mmap_mode="r")
+                rotation = fit_opa(fit_b, fit_a, args.device)
+                values = compare(eval_a + mean_a, eval_b @ rotation + mean_b, pairs)
                 results.append({"layer_a": name_a, "layer_b": name_b, **values})
                 if args.save_transforms:
                     np.save(rotations / f"{name_a}__{name_b}.npy", rotation)

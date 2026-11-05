@@ -82,7 +82,6 @@ def run(args):
         seen.add(key)
         key = (row["level"], row["dim"])
         protocol = tuple(config[name] for name in ("fit_size", "eval_size", "pairs", "eps", "seed"))
-        protocol += (config.get("restore_mean", False),)
         if key in settings and settings[key] != protocol:
             raise ValueError("Runs at the same level and dimension must share evaluation settings.")
         settings[key] = protocol
