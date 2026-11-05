@@ -24,7 +24,7 @@
   <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2609.24209">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=green-20261029">
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=prh-background-20261105">
+  <link rel="stylesheet" href="styles.css?v=inline-summaries-20261105">
   <script src="app.js?v=camera-ready-20261105" defer></script>
 </head>
 <body>
@@ -102,7 +102,7 @@
         <div class="section-heading"><h2>Experiments</h2><p>We evaluate 44 pretrained models: 25 vision transformers spanning three sizes and six pretraining paradigms, plus 19 language models. Cross-model comparisons use rigid alignment only.</p></div>
         <nav class="experiment-nav" aria-label="Experiment parts"><a href="#parallelism">Parallelism</a><a href="#orthogonality">Orthogonality</a><a href="#modality">Modality</a><a href="#dynamics">Dynamics</a><a href="#decomposition">Decomposition</a></nav>
 <section class="experiment-part" id="parallelism" aria-labelledby="parallelism-title">
-      <div class="experiment-heading"><div><h3 id="parallelism-title">Parallelism</h3><p class="experiment-summary"><strong class="accent-text">Concept-level parallelism exceeds sample-level parallelism.</strong></p><p>Under rigid alignment alone, displacement vectors between concepts are preserved across independently trained models, while their pointwise positions differ. <span class="metric-name">Cross-Model</span> similarity increases with model size and is near zero for randomly initialized networks.</p></div></div>
+      <div class="experiment-heading"><div><h3 id="parallelism-title">Parallelism</h3><p><strong class="accent-text">Concept-level parallelism exceeds sample-level parallelism.</strong> Under rigid alignment alone, displacement vectors between concepts are preserved across independently trained models, while their pointwise positions differ. <span class="metric-name">Cross-Model</span> similarity increases with model size and is near zero for randomly initialized networks.</p></div></div>
       <div class="figure-grid three-up"><figure>
       <div class="plot-heading"><h4>Sample-Level Agreement</h4></div>
       <div class="figure-frame"><img src="assets/figures/sample_modality.svg" loading="lazy" alt="Sample-level Pointwise, Cross-Object, and Cross-Model cosine similarities across modality groups."></div>
@@ -119,7 +119,7 @@
       <p class="data-note">All panels report cosine similarity. PCA, whitening, and Procrustes alignment are fitted only on the alignment split and kept fixed during evaluation on disjoint inputs. After alignment, each model’s mean, projected through its own PCA and whitening transforms, is restored. This shift affects Pointwise and <span class="metric-name">Cross-Object</span> similarity but cancels in <span class="metric-name">Cross-Model</span> displacements.</p>
     </section>
     <section class="experiment-part" id="orthogonality" aria-labelledby="orthogonality-title">
-      <div class="experiment-heading"><div><h3 id="orthogonality-title">Orthogonality</h3><p class="experiment-summary"><strong class="accent-text">Parent concepts remain approximately orthogonal to their child variation vectors across layers.</strong></p><p>If samples are weighted combinations of concepts, we hypothesize that within-model orthogonality and cross-model concept parallelism explain sample-level parallelism. Degrading either concept-level condition weakens sample-level parallelism in controlled simulations.</p></div></div>
+      <div class="experiment-heading"><div><h3 id="orthogonality-title">Orthogonality</h3><p><strong class="accent-text">Parent concepts remain approximately orthogonal to their child variation vectors across layers.</strong> If samples are weighted combinations of concepts, we hypothesize that within-model orthogonality and cross-model concept parallelism explain sample-level parallelism. Degrading either concept-level condition weakens sample-level parallelism in controlled simulations.</p></div></div>
       <div class="figure-grid orthogonality-grid"><figure>
       <div class="plot-heading"><h4>Geometry Across Layers</h4></div>
       <div class="figure-frame"><img src="assets/figures/concept_layer.svg" loading="lazy" alt="Cosine similarities for parent, child, sibling, and their displacements across transformer layers."></div>
@@ -149,7 +149,7 @@
       <figcaption>Nearly every language-model layer aligns with deep vision-model layers, consistent with shared semantic structure.</figcaption>
     </figure></div>
     </section><section class="experiment-part" id="dynamics" aria-labelledby="dynamics-title">
-      <div class="experiment-heading"><div><h3 id="dynamics-title">Dynamics</h3><p class="experiment-summary"><strong class="accent-text">Pointwise and <span class="metric-name">Cross-Model</span> similarity respond differently to the training objective.</strong></p><p>From pretrained models, fine-tuning leaves Pointwise nearly unchanged while reducing <span class="metric-name">Cross-Model</span>; feature distillation raises both; relational distillation raises <span class="metric-name">Cross-Model</span> while leaving Pointwise nearly unchanged. From random initialization, supervised training increases both similarities, relational distillation further improves <span class="metric-name">Cross-Model</span> alignment, and feature distillation yields larger gains in both.</p></div></div>
+      <div class="experiment-heading"><div><h3 id="dynamics-title">Dynamics</h3><p><strong class="accent-text">Pointwise and <span class="metric-name">Cross-Model</span> similarity respond differently to the training objective.</strong> From pretrained models, fine-tuning leaves Pointwise nearly unchanged while reducing <span class="metric-name">Cross-Model</span>; feature distillation raises both; relational distillation raises <span class="metric-name">Cross-Model</span> while leaving Pointwise nearly unchanged. From random initialization, supervised training increases both similarities, relational distillation further improves <span class="metric-name">Cross-Model</span> alignment, and feature distillation yields larger gains in both.</p></div></div>
       <div class="figure-grid dynamics-grid"><figure>
       <div class="plot-heading"><h4>Fine-Tuning</h4></div>
       <div class="figure-frame"><img src="assets/figures/dynamics_finetune.svg" loading="lazy" alt="Ten-epoch fine-tuning trajectories of Pointwise and Cross-Model similarity."></div>
@@ -176,7 +176,7 @@
       <figcaption>Direct feature matching raises both positional and directional agreement from random initialization.</figcaption>
     </figure></div>
     </section><section class="experiment-part" id="decomposition" aria-labelledby="decomposition-title">
-      <div class="experiment-heading"><div><h3 id="decomposition-title">Decomposition</h3><p class="experiment-summary"><strong class="accent-text">The shared component aligns linearly across models but remains nonlinearly entangled with the private component.</strong></p><p>At matched dimensions, it has higher <span class="metric-name">Cross-Model</span> similarity and retains more linearly decodable semantic content. Linear dependence between the components is low; RBF dependence is substantially higher.</p></div></div>
+      <div class="experiment-heading"><div><h3 id="decomposition-title">Decomposition</h3><p><strong class="accent-text">The shared component aligns linearly across models but remains nonlinearly entangled with the private component.</strong> At matched dimensions, it has higher <span class="metric-name">Cross-Model</span> similarity and retains more linearly decodable semantic content. Linear dependence between the components is low; RBF dependence is substantially higher.</p></div></div>
       <div class="figure-grid three-up"><figure>
       <div class="plot-heading"><h4><span class="metric-name">Cross-Model</span> Agreement</h4></div>
       <div class="figure-frame"><img src="assets/figures/disentangle_cross.svg" loading="lazy" alt="Cross-Model similarity in original, shared, and private representations as subspace dimension varies."></div>

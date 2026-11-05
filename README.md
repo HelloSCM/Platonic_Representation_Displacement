@@ -72,7 +72,7 @@ The page includes canonical URLs, search metadata, social preview metadata, and 
 
 The layout takes inspiration from [Visual Abstention](https://visual-abstention.github.io/), using this paper's own text, figures, and interactions. The site has no frontend framework, analytics trackers, or external runtime dependencies.
 
-On desktop, the map appears on the left and the explanation and PRH background callout appear on the right. On smaller screens, these elements stack vertically. Experiment summaries are separated from their supporting explanations, and metric names stay together when text wraps.
+On desktop, the map appears on the left and the explanation and PRH background callout appear on the right. On smaller screens, these elements stack vertically. Bold opening findings flow directly into their supporting explanations in the same paragraph, and metric names stay together when text wraps.
 
 The ShadowCLIP description distinguishes training from inference. Compute comparisons distinguish cached training from total computation including precomputation, and explicitly note that inference still uses DINO. Results are presented in an interactive table with a static fallback.
 
