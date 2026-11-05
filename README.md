@@ -1,39 +1,40 @@
 # Displacement Geometry — Project Page
 
-论文 **Displacement Geometry Captures Platonic Shared Reality Across Models and Modalities** 的英文项目介绍页。
+The English project page for **Displacement Geometry Captures Platonic Shared Reality Across Models and Modalities**, accepted at NeurIPS 2026.
 
-- 论文：https://arxiv.org/abs/2609.24209
-- 代码：https://github.com/HelloSCM/Platonic_Representation_Displacement
-- GitHub Pages 目标：https://helloscm.github.io/Platonic_Representation_Displacement/
-- 页面分支：`gh-pages`；论文代码分支：`main`。网页与正在整理的代码独立维护。
+- [Paper](https://arxiv.org/abs/2609.24209)
+- [Code](https://github.com/HelloSCM/Platonic_Representation_Displacement)
+- [Project page](https://helloscm.github.io/Platonic_Representation_Displacement/)
 
-## 本地预览
+The website lives on `gh-pages`; experiment code lives on `main`. The two branches are maintained separately.
 
-无需安装前端依赖，也没有构建步骤：
+## Local preview
+
+There are no frontend dependencies or build steps. From the root of a `gh-pages` checkout, run:
 
 ```bash
-cd /home/scm25/research/platonic/demo
 python -m http.server 8000 --bind 127.0.0.1
 ```
 
-浏览器打开 `http://127.0.0.1:8000/`。请使用 HTTP 预览，以便浏览器读取结果表格的 JSON 数据。
+Open [the local preview](http://127.0.0.1:8000/). Use HTTP rather than opening the HTML file directly so the browser can load the result-table JSON.
 
-## 文件
+## Files
 
-- `index.html`：论文介绍、作者、资源链接、图表、方法、结果和引用。
-- `styles.css`：响应式样式、本地字体、移动端导航与图表布局。
-- `app.js`：Base／Large 结果切换、完整表格、引用复制。
-- `assets/figures/`：从论文 PDF 原图导出的 27 份矢量 SVG。
-- `assets/pdf/`：27 份原始 PDF 图，保留作源素材；页面直接展示 SVG，不提供 PDF 或放大入口。
-- `assets/results.json`：从 LaTeX Table 1 提取的数据，包含全部 16 个 benchmark。
-- `assets/figure-manifest.json`：图表与原始 LaTeX 文件的对应关系。
-- `assets/fonts/`：本地 Inter 字体及其 SIL Open Font License；页面不依赖外部字体服务。
-- `citation.bib`：BibTeX 引用。
-- `scripts/social-card.html`：1200 × 630 分享预览图的源文件；生成后的 PNG 位于 `assets/social-preview.png`。
+- `index.html`: paper overview, authors, resource links, figures, methods, results, and citation.
+- `styles.css`: responsive layout, local fonts, navigation, figures, and background callout.
+- `app.js`: Base/Large result switching, full-table view, and citation copying.
+- `assets/figures/`: 27 vector SVG figures exported from the original paper PDFs.
+- `assets/pdf/`: the 27 original figure PDFs retained as source assets; the page displays SVGs.
+- `assets/results.json`: all 16 benchmark columns extracted from LaTeX Table 1.
+- `assets/figure-manifest.json`: mappings between displayed figures and their LaTeX source files.
+- `assets/fonts/`: local Inter fonts and the SIL Open Font License.
+- `assets/metaphor.png`: the map illustration.
+- `citation.bib`: BibTeX citation.
+- `scripts/social-card.html`: source for the 1200 × 630 social preview at `assets/social-preview.png`.
 
-## 更新图表和结果
+## Updating figures and results
 
-需要 Poppler 的 `pdftocairo` 和 Python 标准库：
+Install Poppler's `pdftocairo` and use Python 3 and Node.js for the checks below:
 
 ```bash
 python scripts/prepare-assets.py --latex ../latex
@@ -41,11 +42,15 @@ python scripts/validate-site.py
 node --check app.js
 ```
 
-脚本直接转换 PDF，保留矢量内容；不对论文曲线重绘。页面按 Metaphor → Geometry → Experiments → Application → Citation 组织。Experiments 包括 Parallelism、Orthogonality、Modality、Dynamics、Decomposition 五组。`assets/metaphor.png` 为地图比喻插图。
+Replace `../latex` with the paper's LaTeX source directory. The export script converts the original PDFs without redrawing curves and extracts Table 1, preserving missing entries and the Base/Large variants. The `w/o LG` row denotes the ablation without the Language Guider.
+
+When updating results, also synchronize the static ViT-Large summary in `index.html`. Update the asset version parameters in `index.html` and the JSON fetch URL in `app.js` as needed so browsers load the new content.
+
+The page follows Metaphor → Geometry → Experiments → Application → Citation. Experiments contains Parallelism, Orthogonality, Modality, Dynamics, and Decomposition. A short background callout beside the map links to the [Platonic Representation Hypothesis project](https://phillipi.github.io/prh/).
 
 ## GitHub Pages
 
-此目录自身是 `gh-pages` 分支的独立工作目录。后续更新：
+Publish changes from the `gh-pages` checkout:
 
 ```bash
 git add index.html styles.css app.js assets citation.bib README.md scripts robots.txt sitemap.xml .nojekyll .gitignore
@@ -53,21 +58,22 @@ git commit -m "Update project page"
 git push origin gh-pages
 ```
 
-首次发布时，在仓库 **Settings → Pages → Build and deployment** 中设置：
+For the initial deployment, configure **Settings → Pages → Build and deployment**:
 
-- Source：**Deploy from a branch**
-- Branch：**gh-pages**
-- Folder：**/(root)**
+- Source: **Deploy from a branch**
+- Branch: **gh-pages**
+- Folder: **/(root)**
 
-保存后，GitHub 会自动部署；之后推送 `gh-pages` 即更新网页。`.nojekyll` 保证静态文件直接发布。
+Subsequent pushes to `gh-pages` trigger deployment. `.nojekyll` enables direct serving of the static files.
 
-页面已配置正式 URL、搜索引擎元数据、社交分享图和学术引用元数据。若以后更换仓库或 URL，同时修改 `index.html` 的 canonical / Open Graph、`robots.txt` 和 `sitemap.xml`。
+The page includes canonical URLs, search metadata, social preview metadata, and scholarly citation metadata. If the repository or site URL changes, update `index.html`, `robots.txt`, and `sitemap.xml` accordingly.
 
-## 内容与设计说明
+## Content and design notes
 
-版式参考 [Visual Abstention](https://visual-abstention.github.io/)，以本论文的文字、图表和交互重新实现。项目页没有框架、分析追踪器或外部运行时依赖。
+The layout takes inspiration from [Visual Abstention](https://visual-abstention.github.io/), using this paper's own text, figures, and interactions. The site has no frontend framework, analytics trackers, or external runtime dependencies.
 
+On desktop, the map appears on the left and the explanation and PRH background callout appear on the right. On smaller screens, these elements stack vertically. Experiment summaries are separated from their supporting explanations, and metric names stay together when text wraps.
 
-性能说明区分缓存后的训练阶段与包含缓存的总计算量，也说明推理时仍使用 DINO。所有论文图表与研究内容的权利归原作者所有；字体许可见 `assets/fonts/OFL.txt`。
+The ShadowCLIP description distinguishes training from inference. Compute comparisons distinguish cached training from total computation including precomputation, and explicitly note that inference still uses DINO. Results are presented in an interactive table with a static fallback.
 
-标题上方展示 NeurIPS 2026 接收信息。地图比喻采用桌面左图右文布局，ShadowCLIP 说明区分 Training 与 Inference，实验结果直接显示交互表格。
+Rights to the paper's figures and research content remain with their authors. Font licensing is documented in `assets/fonts/OFL.txt`.
