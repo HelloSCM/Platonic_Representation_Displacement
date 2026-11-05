@@ -14,12 +14,15 @@ from .alignment import fit_opa
 
 
 def prepare_layer(store, name, indices, fit_idx, eval_idx, args, save_dir=None):
-    """Fit preprocessing on matched fitting rows and transform both splits."""
+    """Fit centered whitening and restore projected means in evaluation features."""
     x = store.load(name)
     proc = Preprocessor(args.dim, eps=args.eps).fit(x, indices[fit_idx], batch_size=args.batch_size)
     if save_dir is not None:
         proc.save(save_dir / f"{name}.npz")
-    return proc.transform(x[indices[fit_idx]]), proc.transform(x[indices[eval_idx]])
+    fit = proc.transform(x[indices[fit_idx]])
+    evaluation = proc.transform(x[indices[eval_idx]])
+    mean = (proc.mu @ proc.basis) / proc.scale
+    return fit, evaluation + mean
 
 
 def run(args):
@@ -46,6 +49,7 @@ def run(args):
             "dim": args.dim,
             "eps": args.eps,
             "method": "pca_whiten",
+            "restore_mean": True,
             "fit_size": args.fit_size,
             "eval_size": args.eval_size,
             "pairs": args.pairs,
