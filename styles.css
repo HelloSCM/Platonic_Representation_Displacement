@@ -218,6 +218,7 @@
 
 /* Align experiment prose with its figures and keep metric names intact. */
 .experiment-heading>div{max-width:none;width:100%}
-.experiment-heading p,.experiment-part figcaption,.experiment-part .data-note{text-wrap:pretty;word-break:normal;hyphens:none}
+.experiment-heading p{text-wrap:wrap;word-break:normal;hyphens:none}
+.experiment-part figcaption,.experiment-part .data-note{text-wrap:pretty;word-break:normal;hyphens:none}
 .metric-name{white-space:nowrap}
 @media(max-width:450px){.opening-copy .prh-tip{padding:13px 15px}.opening-copy .prh-tip p{font-size:12px}}
