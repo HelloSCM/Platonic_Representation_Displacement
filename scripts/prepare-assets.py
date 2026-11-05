@@ -31,7 +31,7 @@ columns = ["Food101", "CIFAR10", "CIFAR100", "SUN397", "Cars", "Aircraft", "DTD"
            "Pets", "Caltech101", "Flowers102", "ImageNet-1K", "COCO I2T", "COCO T2I",
            "Flickr30k I2T", "Flickr30k T2I", "MMVP"]
 results = {}
-pattern = re.compile(r"^(CLIP-FT|CLIP|DreamLIP|LiT|ShareLock|SAIL-NV2|w/o RKD|\{\\methodname\})\s*\n(.*?)(?=\\\\)", re.M | re.S)
+pattern = re.compile(r"^(CLIP-FT|CLIP|DreamLIP|LiT|ShareLock|SAIL-NV2|w/o LG|\{\\methodname\})\s*\n(.*?)(?=\\\\)", re.M | re.S)
 for variant, block in [("base", table.split("ViT-Base")[1].split("ViT-Large")[0]),
                        ("large", table.split("ViT-Large")[1])]:
     rows = []

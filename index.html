@@ -25,7 +25,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=green-20261029">
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css?v=map-hierarchy-20261102">
-  <script src="app.js?v=paper-editorial-20261030" defer></script>
+  <script src="app.js?v=camera-ready-20261105" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -62,7 +62,7 @@
         </div>
         <p class="affiliation">Department of Computer Science, <strong>Dartmouth College</strong></p>
         <p class="contact-note">* <a href="mailto:chenming.shang@dartmouth.edu">chenming.shang@dartmouth.edu</a></p>
-        <p class="author-note">† Co-corresponding authors</p>
+        <p class="author-note">† Co-principal investigators</p>
         <div class="resource-links">
           <a class="button button-primary" href="https://arxiv.org/abs/2609.24209" target="_blank" rel="noopener"><svg><use href="#icon-paper"/></svg>Read the paper</a>
           <a class="button" href="https://github.com/HelloSCM/Platonic_Representation_Displacement" target="_blank" rel="noopener"><svg><use href="#icon-code"/></svg>Code</a>
@@ -116,7 +116,7 @@
       <div class="figure-frame"><img src="assets/figures/sample_size.svg" loading="lazy" alt="Cross-Model similarity by model size for MAE, DINO, CLIP, and MetaCLIP."></div>
       <figcaption>Cross-Model similarity increases with model size and depends on pretraining objective: CLIP and DINO exceed MAE.</figcaption>
     </figure></div>
-      <p class="data-note">All panels report cosine similarity. PCA, whitening, and Procrustes alignment are fitted only on the alignment split and kept fixed during evaluation on disjoint inputs.</p>
+      <p class="data-note">All panels report cosine similarity. PCA, whitening, and Procrustes alignment are fitted only on the alignment split and kept fixed during evaluation on disjoint inputs. After alignment, each model’s mean, projected through its own PCA and whitening transforms, is restored. This shift affects Pointwise and Cross-Object similarity but cancels in Cross-Model displacements.</p>
     </section>
     <section class="experiment-part" id="orthogonality" aria-labelledby="orthogonality-title">
       <div class="experiment-heading"><div><h3 id="orthogonality-title">Orthogonality</h3><p><strong class="accent-text">Parent concepts remain approximately orthogonal to their child variation vectors across layers.</strong> If samples are weighted combinations of concepts, we hypothesize that within-model orthogonality and cross-model concept parallelism explain sample-level parallelism. Degrading either concept-level condition weakens sample-level parallelism in controlled simulations.</p></div></div>
@@ -149,7 +149,7 @@
       <figcaption>Nearly every language-model layer aligns with deep vision-model layers, consistent with shared semantic structure.</figcaption>
     </figure></div>
     </section><section class="experiment-part" id="dynamics" aria-labelledby="dynamics-title">
-      <div class="experiment-heading"><div><h3 id="dynamics-title">Dynamics</h3><p><strong class="accent-text">Pointwise and Cross-Model similarity are independently controllable by training objective.</strong> Fine-tuning leaves Pointwise nearly unchanged while reducing Cross-Model; feature distillation raises both; relational distillation raises only Cross-Model. The 100-epoch experiments reproduce the same pattern from random initialization.</p></div></div>
+      <div class="experiment-heading"><div><h3 id="dynamics-title">Dynamics</h3><p><strong class="accent-text">Pointwise and Cross-Model similarity respond differently to the training objective.</strong> From pretrained models, fine-tuning leaves Pointwise nearly unchanged while reducing Cross-Model; feature distillation raises both; relational distillation raises Cross-Model while leaving Pointwise nearly unchanged. From random initialization, supervised training increases both similarities, relational distillation further improves Cross-Model alignment, and feature distillation yields larger gains in both.</p></div></div>
       <div class="figure-grid dynamics-grid"><figure>
       <div class="plot-heading"><h4>Fine-Tuning</h4></div>
       <div class="figure-frame"><img src="assets/figures/dynamics_finetune.svg" loading="lazy" alt="Ten-epoch fine-tuning trajectories of Pointwise and Cross-Model similarity."></div>
@@ -157,11 +157,11 @@
     </figure><figure>
       <div class="plot-heading"><h4>Relational Distillation</h4></div>
       <div class="figure-frame"><img src="assets/figures/dynamics_rkd.svg" loading="lazy" alt="Relational distillation improves directional agreement while Pointwise remains nearly unchanged."></div>
-      <figcaption>Cross-Model rises from 0.32 to 0.74; Pointwise stays around 0.32–0.35.</figcaption>
+      <figcaption>Cross-Model rises from 0.48 to 0.74; Pointwise stays around 0.32–0.35.</figcaption>
     </figure><figure>
       <div class="plot-heading"><h4>Feature Distillation</h4></div>
       <div class="figure-frame"><img src="assets/figures/dynamics_fkd.svg" loading="lazy" alt="Feature distillation increases both Pointwise and Cross-Model agreement."></div>
-      <figcaption>Pointwise rises from 0.50 to 0.70, and Cross-Model from 0.48 to 0.62.</figcaption>
+      <figcaption>Pointwise rises from 0.32 to 0.70, and Cross-Model from 0.48 to 0.62.</figcaption>
     </figure><figure>
       <div class="plot-heading"><h4>Training From Scratch</h4></div>
       <div class="figure-frame"><img src="assets/figures/scratch_raw.svg" loading="lazy" alt="Pointwise, Cross-Model, and classification accuracy during supervised training from scratch."></div>
@@ -201,8 +201,8 @@
         <div class="application-results" id="results">
         <div class="section-heading"><h3>Experimental Results</h3><p>We evaluate on zero-shot classification (11 benchmarks), image–text retrieval (MSCOCO, Flickr30k), and visual-centric understanding (MMVP).</p></div>
         <div class="results-toolbar"><div class="segmented" role="tablist" aria-label="ShadowCLIP backbone"><button role="tab" id="large-tab" aria-selected="true" aria-controls="results-panel" data-variant="large" tabindex="0">ViT-Large</button><button role="tab" id="base-tab" aria-selected="false" aria-controls="results-panel" data-variant="base" tabindex="-1">ViT-Base</button></div><label class="table-toggle"><input type="checkbox" id="full-results"> Show all 16 benchmarks</label></div>
-        <div id="results-panel" role="tabpanel" aria-labelledby="large-tab"><div class="table-scroll" tabindex="0" role="region" aria-label="ShadowCLIP results table, scroll horizontally for all benchmarks"><table id="results-table"><caption>Selected ViT-Large results (scores in percent)</caption><thead><tr><th scope="col">Method</th><th scope="col">ImageNet-1K</th><th scope="col">COCO I2T</th><th scope="col">COCO T2I</th><th scope="col">Flickr30k I2T</th><th scope="col">Flickr30k T2I</th><th scope="col">MMVP</th></tr></thead><tbody><tr><th scope="row">CLIP</th><td>72.7</td><td>59.7</td><td>43.0</td><td>87.6</td><td>70.2</td><td>20.0</td></tr><tr><th scope="row">SAIL-NV2</th><td>72.1</td><td>57.3</td><td class="best">45.3</td><td>84.9</td><td class="best">73.0</td><td>28.0</td></tr><tr><th scope="row">CLIP-FT</th><td>69.3</td><td>55.6</td><td>42.7</td><td>82.5</td><td>68.9</td><td>19.3</td></tr><tr><th scope="row">w/o RKD</th><td>70.2</td><td>56.6</td><td>43.5</td><td>82.1</td><td>70.3</td><td>20.0</td></tr><tr class="ours"><th scope="row">ShadowCLIP</th><td class="best">76.5</td><td class="best">64.0</td><td>44.4</td><td class="best">89.9</td><td>72.4</td><td class="best">29.6</td></tr></tbody></table></div></div>
-        <p class="data-note">I2T / T2I: image-to-text / text-to-image retrieval R@1. Bold marks the best result within the selected model size; “—” indicates an unreported result.</p><p class="results-context">SAIL uses an LLM text encoder at inference; ShadowCLIP retains CLIP’s text encoder. Computational figures above concern training, and include caching only where specified.</p>
+        <div id="results-panel" role="tabpanel" aria-labelledby="large-tab"><div class="table-scroll" tabindex="0" role="region" aria-label="ShadowCLIP results table, scroll horizontally for all benchmarks"><table id="results-table"><caption>Selected ViT-Large results (scores in percent)</caption><thead><tr><th scope="col">Method</th><th scope="col">ImageNet-1K</th><th scope="col">COCO I2T</th><th scope="col">COCO T2I</th><th scope="col">Flickr30k I2T</th><th scope="col">Flickr30k T2I</th><th scope="col">MMVP</th></tr></thead><tbody><tr><th scope="row">CLIP</th><td>72.7</td><td>59.7</td><td>43.0</td><td>87.6</td><td>70.2</td><td>20.0</td></tr><tr><th scope="row">SAIL-NV2</th><td>72.1</td><td>57.3</td><td class="best">45.3</td><td>84.9</td><td class="best">73.0</td><td>28.0</td></tr><tr><th scope="row">CLIP-FT</th><td>69.3</td><td>55.6</td><td>42.7</td><td>82.5</td><td>68.9</td><td>19.3</td></tr><tr><th scope="row">w/o LG</th><td>70.2</td><td>56.6</td><td>43.5</td><td>82.1</td><td>70.3</td><td>20.0</td></tr><tr class="ours"><th scope="row">ShadowCLIP</th><td class="best">76.5</td><td class="best">64.0</td><td>44.4</td><td class="best">89.9</td><td>72.4</td><td class="best">29.6</td></tr></tbody></table></div></div>
+        <p class="data-note">LG denotes the Language Guider. The w/o LG variant removes the language-side MLP residual and relational distillation, fine-tuning only the language-side linear projection. I2T / T2I: image-to-text / text-to-image retrieval R@1. Bold marks the best result within the selected model size; “—” indicates an unreported result.</p><p class="results-context">SAIL uses an LLM text encoder at inference; ShadowCLIP retains CLIP’s text encoder. Computational figures above concern training, and include caching only where specified.</p>
         </div>
       </div>
     </section>

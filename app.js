@@ -68,7 +68,7 @@ function renderResults() {
 const variantButtons = [...document.querySelectorAll('[data-variant]')];
 variantButtons.forEach(button => button.disabled = true);
 fullResults.disabled = true;
-fetch('assets/results.json')
+fetch('assets/results.json?v=camera-ready-20261105')
   .then(response => {
     if (!response.ok) throw new Error(`Results unavailable: ${response.status}`);
     return response.json();
