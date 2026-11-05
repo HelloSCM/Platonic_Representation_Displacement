@@ -4,7 +4,7 @@
 
 <h1>Displacement Geometry of PRH</h1>
 
-<p><a href="https://arxiv.org/abs/2609.24209"><img src="assets/readme/paper.svg" alt="Paper" height="36"></a> &nbsp; <a href="https://helloscm.github.io/Platonic_Representation_Displacement/"><img src="assets/readme/project.svg" alt="Project" height="36"></a></p>
+<p><a href="https://arxiv.org/abs/2609.24209"><img src="assets/readme/paper.svg?v=b580d348" alt="Paper" height="36"></a> &nbsp; <a href="https://helloscm.github.io/Platonic_Representation_Displacement/"><img src="assets/readme/project.svg?v=b580d348" alt="Project" height="36"></a></p>
 
 <p><em>Accepted at NeurIPS 2026</em></p>
 
